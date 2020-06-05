@@ -1,2 +1,3 @@
-# temporal-dashboards
-Temporal Dashboards
+# Temporal Dashboards
+
+This repo contains Grafana dashboards for Temporal installations.
