@@ -15,6 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
+  "id": 6,
   "links": [],
   "panels": [
     {
@@ -784,9 +785,9 @@
   },
   "timezone": "",
   "title": "Canary",
-  "uid": "eU1TEQqWk",
+  "uid": "58u-1uWGz",
   "variables": {
     "list": []
   },
-  "version": 2
+  "version": 1
 }
