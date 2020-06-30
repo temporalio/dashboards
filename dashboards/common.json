@@ -3,7 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "TemporalMetrics",
+        "datasource": null,
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,7 +21,7 @@
   "panels": [
     {
       "collapsed": true,
-      "datasource": "TemporalMetrics",
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -35,7 +35,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -129,7 +129,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -217,7 +217,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -326,7 +326,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -415,7 +415,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "TemporalMetrics",
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -429,7 +429,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -523,7 +523,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -611,7 +611,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -699,7 +699,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -788,7 +788,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "TemporalMetrics",
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -802,7 +802,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -896,7 +896,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -984,7 +984,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -1072,7 +1072,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -1161,7 +1161,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "TemporalMetrics",
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1175,7 +1175,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -1269,7 +1269,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -1357,7 +1357,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -1445,7 +1445,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "TemporalMetrics",
+          "datasource": null,
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
