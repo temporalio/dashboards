@@ -3,7 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "TemporalMetrics",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -15,6 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
+  "id": 6,
   "links": [],
   "panels": [
     {
@@ -22,7 +23,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -122,7 +123,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -216,7 +217,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -318,7 +319,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -406,7 +407,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -495,7 +496,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -584,7 +585,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -673,7 +674,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -784,9 +785,9 @@
   },
   "timezone": "",
   "title": "Canary",
-  "uid": "eU1TEQqWk",
+  "uid": "58u-1uWGz",
   "variables": {
     "list": []
   },
-  "version": 2
+  "version": 1
 }
