@@ -75,7 +75,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 - (sum(rate(service_errors{app_kubernetes_io_component=\"frontend\"}[5m])) / sum(rate(service_requests{app_kubernetes_io_component=\"frontend\"}[5m])) * 100)",
+          "expr": "100 - (sum(rate(service_errors{app_kubernetes_io_component=\"frontend\"}[2m])) / sum(rate(service_requests{app_kubernetes_io_component=\"frontend\"}[2m])) * 100)",
           "interval": "",
           "legendFormat": "availability",
           "refId": "C"
@@ -166,7 +166,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 - (sum (rate(persistence_errors[5m])) /sum (rate(persistence_requests[5m])) * 100)",
+          "expr": "100 - (sum (rate(persistence_errors[2m])) /sum (rate(persistence_requests[2m])) * 100)",
           "interval": "",
           "legendFormat": "availability",
           "refId": "C"
@@ -342,37 +342,37 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(service_requests{type=\"matching\", operation=\"AddWorkflowTask\"}[5m]))",
+          "expr": "sum(rate(service_requests{type=\"matching\", operation=\"AddWorkflowTask\"}[2m]))",
           "interval": "",
           "legendFormat": "Scheduled",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RecordWorkflowTaskStarted\"}[5m]))",
+          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RecordWorkflowTaskStarted\"}[2m]))",
           "interval": "",
           "legendFormat": "Started",
           "refId": "B"
         },
         {
-          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[2m]))",
           "interval": "",
           "legendFormat": "Completed",
           "refId": "C"
         },
         {
-          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RespondWorkflowTaskFailed\"}[5m]))",
+          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RespondWorkflowTaskFailed\"}[2m]))",
           "interval": "",
           "legendFormat": "Failed",
           "refId": "D"
         },
         {
-          "expr": "sum(rate(schedule_to_start_timeout{type=\"history\", operation=\"TimerActiveTaskWorkflowTimeout\"}[5m]))",
+          "expr": "sum(rate(schedule_to_start_timeout{type=\"history\", operation=\"TimerActiveTaskWorkflowTimeout\"}[2m]))",
           "interval": "",
           "legendFormat": "Sticky Task Queue Timeout",
           "refId": "E"
         },
         {
-          "expr": "sum(rate(start_to_close_timeout{type=\"history\", operation=\"TimerActiveTaskWorkflowTimeout\"}[5m]))",
+          "expr": "sum(rate(start_to_close_timeout{type=\"history\", operation=\"TimerActiveTaskWorkflowTimeout\"}[2m]))",
           "interval": "",
           "legendFormat": "Workflow Task Timeout",
           "refId": "F"
@@ -460,19 +460,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(service_requests{type=\"matching\", operation=\"AddActivityTask\"}[5m]))",
+          "expr": "sum(rate(service_requests{type=\"matching\", operation=\"AddActivityTask\"}[2m]))",
           "interval": "",
           "legendFormat": "Scheduled",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RecordActivityTaskStarted\"}[5m]))",
+          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RecordActivityTaskStarted\"}[2m]))",
           "interval": "",
           "legendFormat": "Started",
           "refId": "B"
         },
         {
-          "expr": "sum(rate(service_requests{type=\"history\", operation=~\"RespondActivityTaskCompleted|RespondActivityTaskFailed|RespondActivityTaskCanceled\"}[5m]))",
+          "expr": "sum(rate(service_requests{type=\"history\", operation=~\"RespondActivityTaskCompleted|RespondActivityTaskFailed|RespondActivityTaskCanceled\"}[2m]))",
           "interval": "",
           "legendFormat": "Completed",
           "refId": "C"
