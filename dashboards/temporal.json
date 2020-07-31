@@ -75,7 +75,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 - (sum(rate(service_errors[5m])) / sum(rate(service_requests[5m])) * 100)",
+          "expr": "100 - (sum(rate(service_errors{app_kubernetes_io_component=\"frontend\"}[5m])) / sum(rate(service_requests{app_kubernetes_io_component=\"frontend\"}[5m])) * 100)",
           "interval": "",
           "legendFormat": "availability",
           "refId": "C"
@@ -85,7 +85,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Service Availability",
+      "title": "Service Availability (Based on Frontend Calls)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -342,39 +342,39 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(service_requests{type=\"matching\", operation=\"AddDecisionTask\"}[5m]))",
+          "expr": "sum(rate(service_requests{type=\"matching\", operation=\"AddWorkflowTask\"}[5m]))",
           "interval": "",
           "legendFormat": "Scheduled",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RecordDecisionTaskStarted\"}[5m]))",
+          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RecordWorkflowTaskStarted\"}[5m]))",
           "interval": "",
           "legendFormat": "Started",
           "refId": "B"
         },
         {
-          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RespondDecisionTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "Completed",
           "refId": "C"
         },
         {
-          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RespondDecisionTaskFailed\"}[5m]))",
+          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RespondWorkflowTaskFailed\"}[5m]))",
           "interval": "",
           "legendFormat": "Failed",
           "refId": "D"
         },
         {
-          "expr": "sum(rate(schedule_to_start_timeout{type=\"history\", operation=\"TimerActiveTaskDecisionTimeout\"}[5m]))",
+          "expr": "sum(rate(schedule_to_start_timeout{type=\"history\", operation=\"TimerActiveTaskWorkflowTimeout\"}[5m]))",
           "interval": "",
-          "legendFormat": "Sticky Timeout",
+          "legendFormat": "Sticky Task Queue Timeout",
           "refId": "E"
         },
         {
-          "expr": "sum(rate(start_to_close_timeout{type=\"history\", operation=\"TimerActiveTaskDecisionTimeout\"}[5m]))",
+          "expr": "sum(rate(start_to_close_timeout{type=\"history\", operation=\"TimerActiveTaskWorkflowTimeout\"}[5m]))",
           "interval": "",
-          "legendFormat": "Decision Timeout",
+          "legendFormat": "Workflow Task Timeout",
           "refId": "F"
         }
       ],
@@ -382,7 +382,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Decisions",
+      "title": "Workflow Tasks",
       "tooltip": {
         "shared": true,
         "sort": 0,
