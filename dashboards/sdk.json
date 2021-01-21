@@ -2870,7 +2870,7 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
+        "allValue": ".*",
         "current": {
           "selected": true,
           "text": "All",
@@ -2886,29 +2886,13 @@
             "selected": true,
             "text": "All",
             "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "canary",
-            "value": "canary"
-          },
-          {
-            "selected": false,
-            "text": "temporal-bench",
-            "value": "temporal-bench"
-          },
-          {
-            "selected": false,
-            "text": "temporal_system",
-            "value": "temporal_system"
           }
         ],
-        "query": "canary,temporal-bench,temporal_system",
         "skipUrlSync": false,
         "type": "custom"
       },
       {
-        "allValue": null,
+        "allValue": ".*",
         "current": {
           "selected": true,
           "text": "All",
@@ -2924,19 +2908,8 @@
             "selected": true,
             "text": "All",
             "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "cronWorkflow",
-            "value": "cronWorkflow"
-          },
-          {
-            "selected": false,
-            "text": "workflow_sanity",
-            "value": "workflow_sanity"
           }
         ],
-        "query": "cronWorkflow,workflow_sanity",
         "skipUrlSync": false,
         "type": "custom"
       }
