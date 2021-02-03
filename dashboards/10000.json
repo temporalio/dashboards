@@ -4,7 +4,7 @@
       {
         "$$hashKey": "object:218",
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "TemporalMetrics",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -23,7 +23,7 @@
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -817,7 +817,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -936,7 +936,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1053,7 +1053,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "TemporalMetrics",
       "gridPos": {
         "h": 1,
         "w": 24,
