@@ -2879,7 +2879,7 @@
         "hide": 0,
         "includeAll": true,
         "label": null,
-        "multi": false,
+        "multi": true,
         "name": "Namespace",
         "options": [
           {
@@ -2889,7 +2889,9 @@
           }
         ],
         "skipUrlSync": false,
-        "type": "custom"
+        "type": "query",
+        "datasource": "TemporalMetrics",
+        "query": "label_values(temporal_request, namespace)"
       },
       {
         "allValue": ".*",
@@ -2901,7 +2903,7 @@
         "hide": 0,
         "includeAll": true,
         "label": null,
-        "multi": false,
+        "multi": true,
         "name": "WorkflowType",
         "options": [
           {
@@ -2911,7 +2913,10 @@
           }
         ],
         "skipUrlSync": false,
-        "type": "custom"
+        "type": "query",
+        "datasource": "TemporalMetrics",
+        "query": "label_values(temporal_workflow_task_schedule_to_start_latency_count, workflow_type)"
+
       }
     ]
   },
