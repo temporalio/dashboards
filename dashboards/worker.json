@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 41,
-  "iteration": 1631748630041,
+  "iteration": 1631748839881,
   "links": [],
   "panels": [
     {
@@ -38,7 +38,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$Datasource",
+      "datasource": "${datasource}",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -80,7 +80,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(sum without (instance, pod) (started)) - (sum without (instance, pod) (stopped or started*0))",
+          "expr": "(sum without (instance, pod) (started{cluster=\"$cluster\"})) - (sum without (instance, pod) (stopped{cluster=\"$cluster\"} or started{cluster=\"$cluster\"}*0))",
           "hide": false,
           "interval": "",
           "legendFormat": "{{cluster}} <> {{k8s_cluster_name}} <> {{operation}}",
@@ -129,7 +129,7 @@
       }
     },
     {
-      "datasource": null,
+      "datasource": "${datasource}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -200,7 +200,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum without (instance, pod) (rate(executor_done[1m]))",
+          "expr": "sum without (instance, pod) (rate(executor_done{cluster=\"$cluster\"}[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "{{cluster}}-{{operation}}",
@@ -211,7 +211,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": "${datasource}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -282,7 +282,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum without (instance, pod) (rate(executor_dropped[1m]))",
+          "expr": "sum without (instance, pod) (rate(executor_dropped{cluster=\"$cluster\"}[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "{{cluster}}-{{operation}}",
@@ -293,7 +293,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": "${datasource}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -364,7 +364,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum without (instance, pod) (rate(executor_err[1m]))",
+          "expr": "sum without (instance, pod) (rate(executor_err{cluster=\"$cluster\"}[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "{{cluster}}-{{operation}}",
@@ -375,7 +375,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": "${datasource}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -446,7 +446,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum without (instance, pod) (rate(executor_deferred[1m]))",
+          "expr": "sum without (instance, pod) (rate(executor_deferred{cluster=\"$cluster\"}[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "{{cluster}}-{{operation}}",
@@ -468,7 +468,7 @@
       "id": 14,
       "panels": [
         {
-          "datasource": null,
+          "datasource": "${datasource}",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -539,7 +539,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without (instance, pod)(rate(scavenger_validation_requests[1m]))",
+              "expr": "sum without (instance, pod)(rate(scavenger_validation_requests{cluster=\"$cluster\"}[1m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
@@ -554,7 +554,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "$Datasource",
+          "datasource": "${datasource}",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -592,7 +592,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without (instance, pod)(rate(scavenger_validation_failures[5m]))",
+              "expr": "sum without (instance, pod)(rate(scavenger_validation_failures{cluster=\"$cluster\"}[5m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "{{cluster}} <> {{k8s_cluster_name}} <> {{failure}}",
@@ -645,7 +645,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "$Datasource",
+          "datasource": "${datasource}",
           "description": "Might stuck until scavenger rerun in case of worker crash.",
           "fill": 1,
           "fillGradient": 0,
@@ -684,7 +684,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without (instance, pod)(executions_outstanding)",
+              "expr": "sum without (instance, pod)(executions_outstanding{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
               "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
@@ -748,7 +748,7 @@
       "id": 29,
       "panels": [
         {
-          "datasource": null,
+          "datasource": "${datasource}",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -819,7 +819,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without (instance, pod)(taskqueue_outstanding)",
+              "expr": "sum without (instance, pod)(taskqueue_outstanding{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
               "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
@@ -830,7 +830,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": null,
+          "datasource": "${datasource}",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -901,7 +901,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without (instance, pod)(taskqueue_processed)",
+              "expr": "sum without (instance, pod)(taskqueue_processed{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
               "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
@@ -912,7 +912,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": null,
+          "datasource": "${datasource}",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -983,7 +983,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without (instance, pod)(taskqueue_deleted)",
+              "expr": "sum without (instance, pod)(taskqueue_deleted{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
               "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
@@ -994,7 +994,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": null,
+          "datasource": "${datasource}",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1065,7 +1065,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without (instance, pod)(task_processed)",
+              "expr": "sum without (instance, pod)(task_processed{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
               "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
@@ -1076,7 +1076,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": null,
+          "datasource": "${datasource}",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1147,7 +1147,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without (instance, pod)(task_deleted)",
+              "expr": "sum without (instance, pod)(task_deleted{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
               "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
@@ -1173,7 +1173,7 @@
       "id": 37,
       "panels": [
         {
-          "datasource": null,
+          "datasource": "${datasource}",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1244,7 +1244,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without (instance, pod)(rate(scavenger_success[1m]))",
+              "expr": "sum without (instance, pod)(rate(scavenger_success{cluster=\"$cluster\"}[1m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
@@ -1255,7 +1255,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": null,
+          "datasource": "${datasource}",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1326,7 +1326,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without (instance, pod)(rate(scavenger_skips[1m]))",
+              "expr": "sum without (instance, pod)(rate(scavenger_skips{cluster=\"$cluster\"}[1m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
@@ -1337,7 +1337,7 @@
           "type": "timeseries"
         },
         {
-          "datasource": null,
+          "datasource": "${datasource}",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1408,7 +1408,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum without (instance, pod)(rate(scavenger_errors[1m]))",
+              "expr": "sum without (instance, pod)(rate(scavenger_errors{cluster=\"$cluster\"}[1m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
@@ -1441,7 +1441,7 @@
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "Datasource",
+        "name": "datasource",
         "options": [],
         "query": "prometheus",
         "queryValue": "",
@@ -1449,6 +1449,33 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "stage-1",
+          "value": "stage-1"
+        },
+        "datasource": "${datasource}",
+        "definition": "label_values(service_requests,cluster)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "cluster",
+        "options": [],
+        "query": {
+          "query": "label_values(service_requests,cluster)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
@@ -1460,5 +1487,5 @@
   "timezone": "",
   "title": "Worker",
   "uid": "wDIPo8Snz",
-  "version": 4
+  "version": 5
 }
