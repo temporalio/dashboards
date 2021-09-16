@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 41,
-  "iteration": 1631748839881,
+  "iteration": 1631751880321,
   "links": [],
   "panels": [
     {
@@ -83,7 +83,7 @@
           "expr": "(sum without (instance, pod) (started{cluster=\"$cluster\"})) - (sum without (instance, pod) (stopped{cluster=\"$cluster\"} or started{cluster=\"$cluster\"}*0))",
           "hide": false,
           "interval": "",
-          "legendFormat": "{{cluster}} <> {{k8s_cluster_name}} <> {{operation}}",
+          "legendFormat": "{{operation}}",
           "refId": "A"
         }
       ],
@@ -203,7 +203,7 @@
           "expr": "sum without (instance, pod) (rate(executor_done{cluster=\"$cluster\"}[1m]))",
           "hide": false,
           "interval": "",
-          "legendFormat": "{{cluster}}-{{operation}}",
+          "legendFormat": "{{operation}}",
           "refId": "B"
         }
       ],
@@ -285,7 +285,7 @@
           "expr": "sum without (instance, pod) (rate(executor_dropped{cluster=\"$cluster\"}[1m]))",
           "hide": false,
           "interval": "",
-          "legendFormat": "{{cluster}}-{{operation}}",
+          "legendFormat": "{{operation}}",
           "refId": "C"
         }
       ],
@@ -367,7 +367,7 @@
           "expr": "sum without (instance, pod) (rate(executor_err{cluster=\"$cluster\"}[1m]))",
           "hide": false,
           "interval": "",
-          "legendFormat": "{{cluster}}-{{operation}}",
+          "legendFormat": "{{operation}}",
           "refId": "D"
         }
       ],
@@ -449,7 +449,7 @@
           "expr": "sum without (instance, pod) (rate(executor_deferred{cluster=\"$cluster\"}[1m]))",
           "hide": false,
           "interval": "",
-          "legendFormat": "{{cluster}}-{{operation}}",
+          "legendFormat": "{{operation}}",
           "refId": "E"
         }
       ],
@@ -542,7 +542,7 @@
               "expr": "sum without (instance, pod)(rate(scavenger_validation_requests{cluster=\"$cluster\"}[1m]))",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
+              "legendFormat": "{{k8s_cluster_name}}",
               "refId": "B"
             }
           ],
@@ -595,7 +595,7 @@
               "expr": "sum without (instance, pod)(rate(scavenger_validation_failures{cluster=\"$cluster\"}[5m]))",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{cluster}} <> {{k8s_cluster_name}} <> {{failure}}",
+              "legendFormat": "{{failure}}",
               "refId": "A"
             }
           ],
@@ -687,7 +687,7 @@
               "expr": "sum without (instance, pod)(executions_outstanding{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
+              "legendFormat": "{{k8s_cluster_name}}",
               "refId": "A"
             }
           ],
@@ -822,7 +822,7 @@
               "expr": "sum without (instance, pod)(taskqueue_outstanding{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
+              "legendFormat": "{{k8s_cluster_name}}",
               "refId": "B"
             }
           ],
@@ -904,7 +904,7 @@
               "expr": "sum without (instance, pod)(taskqueue_processed{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
+              "legendFormat": "{{k8s_cluster_name}}",
               "refId": "D"
             }
           ],
@@ -986,7 +986,7 @@
               "expr": "sum without (instance, pod)(taskqueue_deleted{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
+              "legendFormat": "{{k8s_cluster_name}}",
               "refId": "C"
             }
           ],
@@ -1068,7 +1068,7 @@
               "expr": "sum without (instance, pod)(task_processed{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
+              "legendFormat": "{{k8s_cluster_name}}",
               "refId": "E"
             }
           ],
@@ -1150,7 +1150,7 @@
               "expr": "sum without (instance, pod)(task_deleted{cluster=\"$cluster\"})",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
+              "legendFormat": "{{k8s_cluster_name}}",
               "refId": "F"
             }
           ],
@@ -1247,7 +1247,7 @@
               "expr": "sum without (instance, pod)(rate(scavenger_success{cluster=\"$cluster\"}[1m]))",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
+              "legendFormat": "{{k8s_cluster_name}}",
               "refId": "A"
             }
           ],
@@ -1329,7 +1329,7 @@
               "expr": "sum without (instance, pod)(rate(scavenger_skips{cluster=\"$cluster\"}[1m]))",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
+              "legendFormat": "{{k8s_cluster_name}}",
               "refId": "C"
             }
           ],
@@ -1411,7 +1411,7 @@
               "expr": "sum without (instance, pod)(rate(scavenger_errors{cluster=\"$cluster\"}[1m]))",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{cluster}} <> {{k8s_cluster_name}}",
+              "legendFormat": "{{k8s_cluster_name}}",
               "refId": "B"
             }
           ],
@@ -1453,7 +1453,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "stage-1",
           "value": "stage-1"
         },
@@ -1487,5 +1487,5 @@
   "timezone": "",
   "title": "Worker",
   "uid": "wDIPo8Snz",
-  "version": 5
+  "version": 8
 }
