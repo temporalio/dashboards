@@ -1801,7 +1801,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum by (operation) (rate(persistence_errors{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))",
+              "expr": "sum by (operation) (rate(visibility_persistence_errors{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))",
               "interval": "",
               "legendFormat": "{{operation}}",
               "refId": "A"
@@ -2553,7 +2553,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (operation) (rate(persistence_errors{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))",
+          "expr": "sum by (operation) (rate(visibility_persistence_errors{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
