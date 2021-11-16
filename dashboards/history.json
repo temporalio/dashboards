@@ -350,7 +350,7 @@
           "refId": "A"
         },
         {
-          "expr": "sum(rate(service_errors_execution_already_started{type=\"hisotry\"}[5m]))",
+          "expr": "sum(rate(service_errors_execution_already_started{type=\"history\"}[5m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "Execution Already Started",
