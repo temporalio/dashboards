@@ -3303,8 +3303,8 @@
     ]
   },
   "time": {
-    "from": "2020-07-06T20:26:29.333Z",
-    "to": "2020-07-06T20:44:39.936Z"
+    "from": "now-30m",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
