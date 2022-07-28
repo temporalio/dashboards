@@ -45,9 +45,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -131,9 +129,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -218,9 +214,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -304,9 +298,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -420,9 +412,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -518,9 +508,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -596,9 +584,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -704,9 +690,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -793,9 +777,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -879,9 +861,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -965,9 +945,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -1051,9 +1029,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -1137,9 +1113,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -1223,9 +1197,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -1309,9 +1281,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -1396,9 +1366,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": {
-        "uid": "$datasource"
-      },
+      "datasource": "TemporalMetrics",
       "fieldConfig": {
         "defaults": {
           "links": []
@@ -1518,9 +1486,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -1621,9 +1587,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -1700,9 +1664,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -1779,9 +1741,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -1858,9 +1818,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -1937,9 +1895,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -2030,9 +1986,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -2115,9 +2069,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -2194,9 +2146,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -2295,9 +2245,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -2374,9 +2322,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -2467,9 +2413,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -2559,9 +2503,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -2645,9 +2587,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -2731,9 +2671,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fieldConfig": {
             "defaults": {
               "links": []
@@ -2832,9 +2770,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -2917,9 +2853,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -2996,9 +2930,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -3075,9 +3007,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
+          "datasource": "TemporalMetrics",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
@@ -3160,56 +3090,6 @@
   "tags": [],
   "templating": {
     "list": [
-      {
-        "current": {
-          "selected": false,
-          "text": "Temporal Prometheus",
-          "value": "Temporal Prometheus"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "datasource",
-        "options": [],
-        "query": "prometheus",
-        "queryValue": "",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "type": "datasource"
-      },
-      {
-        "current": {
-          "isNone": true,
-          "selected": false,
-          "text": "None",
-          "value": ""
-        },
-        "datasource": {
-          "type": "datasource",
-          "uid": "$datasource"
-        },
-        "definition": "label_values(service_requests,cluster)",
-        "hide": 0,
-        "includeAll": false,
-        "includeall": false,
-        "multi": false,
-        "name": "cluster",
-        "options": [],
-        "query": {
-          "query": "label_values(service_requests,cluster)",
-          "refId": "temporal-cluster-Variable-Query"
-        },
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "skipurlsync": false,
-        "sort": 0,
-        "tagsquery": "",
-        "tagvaluesquery": "",
-        "type": "query",
-        "usetags": false
-      },
       {
         "current": {
           "selected": true,
@@ -3307,7 +3187,6 @@
   },
   "timezone": "",
   "title": "Temporal Server Metrics",
-  "uid": "FxWwuPinz",
   "version": 1,
   "weekStart": ""
 }
