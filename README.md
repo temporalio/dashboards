@@ -14,6 +14,19 @@ We welcome contributions to existing as well as new dashboards that can help the
 * [`sdk/`](sdk): Dashboards for Temporal SDK metrics
 * [`misc/`](misc): Server metrics dashboards that have not been fully tested yet or need improvements
 
+## Usage
+
+Our default helm chart installs Grafana and will provision the dashboards from this repo automatically. If you would like to try these dashboards on your own Grafana instance you can import them. Unfortunately Grafana does not allow importing by URL aside from those hosted on the Grafana website, so the JSON of the dashboard needs to be copy/pasted into your Grafana instance. To do this:
+
+1. Copy the JSON for the dashboard you would like to import to your clipboard. For example if you wanted to import the Server Metrics dashboard, navigate to https://github.com/temporalio/dashboards/blob/master/server/server-general.json and then use the "Copy raw contents" button at the top right of the editor panel on Github (next to the "Delete this file" button).
+1. In Grafana, navigate to the Dashboards -> Manage page.
+1. Click the "Import" button on the far right of the page.
+1. Paste the JSON from your clipboard into the "Or paste JSON" text area on the Import page.
+1. Click the "Load" button.
+1. Adjust the name and folder if you need to.
+1. Click the "Import" button.
+1. Grafana should save the dashboard and redirect browser to it.
+
 ## Learn more
 
 For more information on Temporal, reference our [docs](https://docs.temporal.io/).
