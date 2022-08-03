@@ -16,7 +16,7 @@ We welcome contributions to existing as well as new dashboards that can help the
 
 ## Usage
 
-Our default helm chart installs Grafana and will provision the dashboards from this repo automatically. If you would like to try these dashboards on your own Grafana instance you can import them. Unfortunately Grafana does not allow importing by URL aside from those hosted on the Grafana website, so the JSON of the dashboard needs to be copy/pasted into your Grafana instance. To do this:
+Our [default helm chart](https://github.com/temporalio/helm-charts) installs Grafana and will provision the dashboards from this repo automatically. If you would like to try these dashboards on your own Grafana instance you can import them. Unfortunately Grafana does not allow importing by URL aside from those hosted on the Grafana website, so the JSON of the dashboard needs to be copy/pasted into your Grafana instance. To do this:
 
 1. Copy the JSON for the dashboard you would like to import to your clipboard. For example if you wanted to import the Server Metrics dashboard, navigate to https://github.com/temporalio/dashboards/blob/master/server/server-general.json and then use the "Copy raw contents" button at the top right of the editor panel on Github (next to the "Delete this file" button).
 1. In Grafana, navigate to the Dashboards -> Manage page.
