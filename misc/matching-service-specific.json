@@ -70,13 +70,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum (rate(service_requests{type=\"matching\"}[5m]))",
+              "expr": "sum (rate(service_requests{service_name=\"matching\"}[5m]))",
               "interval": "",
               "legendFormat": "requests",
               "refId": "A"
             },
             {
-              "expr": "sum (rate(service_errors{type=\"matching\"}[5m]))",
+              "expr": "sum (rate(service_errors{service_name=\"matching\"}[5m]))",
               "interval": "",
               "legendFormat": "errors",
               "refId": "B"
@@ -164,7 +164,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (operation) (rate(service_requests{type=\"matching\"}[5m]))",
+              "expr": "sum by (operation) (rate(service_requests{service_name=\"matching\"}[5m]))",
               "interval": "",
               "legendFormat": "{{operation}}",
               "refId": "A"
@@ -252,28 +252,28 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(service_errors_entity_not_found{type=\"matching\"}[5m]))",
+              "expr": "sum(rate(service_errors_entity_not_found{service_name=\"matching\"}[5m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "Entity Not Found",
               "refId": "A"
             },
             {
-              "expr": "sum(rate(service_errors_execution_already_started{type=\"matching\"}[5m]))",
+              "expr": "sum(rate(service_errors_execution_already_started{service_name=\"matching\"}[5m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "Execution Already Started",
               "refId": "B"
             },
             {
-              "expr": "sum(rate(service_errors_resource_exhausted{type=\"matching\"}[5m]))",
+              "expr": "sum(rate(service_errors_resource_exhausted{service_name=\"matching\"}[5m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "Resource Exhausted",
               "refId": "C"
             },
             {
-              "expr": "sum by (__name__) (rate({__name__=~\"service_errors_.*\", type=\"matching\"}[5m]))",
+              "expr": "sum by (__name__) (rate({__name__=~\"service_errors_.*\", service_name=\"matching\"}[5m]))",
               "interval": "",
               "legendFormat": "{{ $__name__ }}",
               "refId": "D"
@@ -361,7 +361,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(service_latency_bucket{type=\"matching\"}[5m])) by (operation, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(service_latency_bucket{service_name=\"matching\"}[5m])) by (operation, le))",
               "interval": "",
               "legendFormat": "{{operation}}",
               "refId": "A"
@@ -655,7 +655,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(syncmatch_latency_bucket{type=~\"matching\"}[5m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(syncmatch_latency_bucket{service_name=~\"matching\"}[5m])) by (operation, le))",
           "hide": false,
           "interval": "",
           "legendFormat": "sync - {{operation}}",
@@ -750,7 +750,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(asyncmatch_latency_bucket{type=~\"matching\"}[5m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(asyncmatch_latency_bucket{service_name=~\"matching\"}[5m])) by (operation, le))",
           "hide": false,
           "interval": "",
           "legendFormat": "{{operation}}",
@@ -1677,13 +1677,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (rate(persistence_requests{type=\"matching\"}[5m]))",
+          "expr": "sum (rate(persistence_requests{service_name=\"matching\"}[5m]))",
           "interval": "",
           "legendFormat": "requests",
           "refId": "A"
         },
         {
-          "expr": "sum (rate(persistence_errors{type=\"matching\"}[5m]))",
+          "expr": "sum (rate(persistence_errors{service_name=\"matching\"}[5m]))",
           "interval": "",
           "legendFormat": "errors",
           "refId": "B"
@@ -1771,7 +1771,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (operation) (rate(persistence_requests{type=\"matching\"}[5m]))",
+          "expr": "sum by (operation) (rate(persistence_requests{service_name=\"matching\"}[5m]))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
@@ -1947,7 +1947,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(persistence_latency_bucket{type=\"matching\"}[5m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(persistence_latency_bucket{service_name=\"matching\"}[5m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
@@ -2046,13 +2046,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(client_requests{type=\"matching\", service_role=\"history\"}[5m]))",
+              "expr": "sum(rate(client_requests{service_name=\"matching\", service_role=\"history\"}[5m]))",
               "interval": "",
               "legendFormat": "requests",
               "refId": "A"
             },
             {
-              "expr": "sum(rate(client_errors{type=\"matching\", service_role=\"history\"}[5m]))",
+              "expr": "sum(rate(client_errors{service_name=\"matching\", service_role=\"history\"}[5m]))",
               "interval": "",
               "legendFormat": "errors",
               "refId": "B"
@@ -2140,7 +2140,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (operation) (rate(client_requests{type=\"matching\", service_role=\"history\"}[5m]))",
+              "expr": "sum by (operation) (rate(client_requests{service_name=\"matching\", service_role=\"history\"}[5m]))",
               "interval": "",
               "legendFormat": "{{operation}}",
               "refId": "A"
@@ -2228,7 +2228,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (operation) (rate(client_errors{type=\"matching\", service_role=\"history\"}[5m]))",
+              "expr": "sum by (operation) (rate(client_errors{service_name=\"matching\", service_role=\"history\"}[5m]))",
               "interval": "",
               "legendFormat": "{{operation}}",
               "refId": "A"
@@ -2316,7 +2316,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(client_latency_bucket{type=\"matching\", service_role=\"history\"}[5m])) by (operation, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(client_latency_bucket{service_name=\"matching\", service_role=\"history\"}[5m])) by (operation, le))",
               "interval": "",
               "legendFormat": "{{operation}}",
               "refId": "A"

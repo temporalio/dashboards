@@ -73,13 +73,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (rate(service_requests{type=\"history\"}[5m]))",
+          "expr": "sum (rate(service_requests{service_name=\"history\"}[5m]))",
           "interval": "",
           "legendFormat": "requests",
           "refId": "A"
         },
         {
-          "expr": "sum (rate(service_errors{type=\"history\"}[5m]))",
+          "expr": "sum (rate(service_errors{service_name=\"history\"}[5m]))",
           "interval": "",
           "legendFormat": "errors",
           "refId": "B"
@@ -167,7 +167,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (operation) (rate(service_requests{type=\"history\"}[5m]))",
+          "expr": "sum by (operation) (rate(service_requests{service_name=\"history\"}[5m]))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
@@ -255,7 +255,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (operation) (rate({__name__=~\"service_errors_.*\", type=\"history\"}[5m]))",
+          "expr": "sum by (operation) (rate({__name__=~\"service_errors_.*\", service_name=\"history\"}[5m]))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
@@ -343,28 +343,28 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(service_errors_entity_not_found{type=\"history\"}[5m]))",
+          "expr": "sum(rate(service_errors_entity_not_found{service_name=\"history\"}[5m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "Entity Not Found",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(service_errors_execution_already_started{type=\"history\"}[5m]))",
+          "expr": "sum(rate(service_errors_execution_already_started{service_name=\"history\"}[5m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "Execution Already Started",
           "refId": "B"
         },
         {
-          "expr": "sum(rate(service_errors_resource_exhausted{type=\"history\"}[5m]))",
+          "expr": "sum(rate(service_errors_resource_exhausted{service_name=\"history\"}[5m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "Resource Exhausted",
           "refId": "C"
         },
         {
-          "expr": "sum by (__name__) (rate({__name__=~\"service_errors_.*\", type=\"history\"}[5m]))",
+          "expr": "sum by (__name__) (rate({__name__=~\"service_errors_.*\", service_name=\"history\"}[5m]))",
           "interval": "",
           "legendFormat": "{{ $__name__ }}",
           "refId": "D"
@@ -452,7 +452,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(service_latency_bucket{type=\"history\"}[5m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(service_latency_bucket{service_name=\"history\"}[5m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
@@ -915,7 +915,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(task_latency_processing_bucket{operation=~\"TransferActive.*\", type=\"history\"}[5m])) by (operation, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(task_latency_processing_bucket{operation=~\"TransferActive.*\", service_name=\"history\"}[5m])) by (operation, le))",
               "interval": "",
               "legendFormat": "{{ operation }}",
               "refId": "A"
@@ -1003,7 +1003,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(task_latency_bucket{operation=~\"TransferActive.*\", type=\"history\"}[5m])) by (operation, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(task_latency_bucket{operation=~\"TransferActive.*\", service_name=\"history\"}[5m])) by (operation, le))",
               "interval": "",
               "legendFormat": "{{ operation }}",
               "refId": "A"
@@ -1091,7 +1091,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(task_latency_queue_bucket{operation=~\"TransferActive.*\", type=\"history\"}[5m])) by (operation, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(task_latency_queue_bucket{operation=~\"TransferActive.*\", service_name=\"history\"}[5m])) by (operation, le))",
               "interval": "",
               "legendFormat": "{{ operation }}",
               "refId": "A"
@@ -1179,7 +1179,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(task_attempt_bucket{operation=~\"TransferActive.*\", type=\"history\"}[5m])) by (operation, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(task_attempt_bucket{operation=~\"TransferActive.*\", service_name=\"history\"}[5m])) by (operation, le))",
               "hide": true,
               "interval": "",
               "legendFormat": "{{ operation }}",
@@ -1203,14 +1203,14 @@
               "refId": "C"
             },
             {
-              "expr": "histogram_quantile(0.95, sum(rate(task_attempt_bucket{operation=\"TransferActiveTaskCommand\", type=\"history\"}[5m])) by (operation, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(task_attempt_bucket{operation=\"TransferActiveTaskCommand\", service_name=\"history\"}[5m])) by (operation, le))",
               "hide": true,
               "interval": "",
               "legendFormat": "",
               "refId": "D"
             },
             {
-              "expr": "sum(rate(task_attempt_bucket{operation=\"TransferActiveTaskCommand\", type=\"history\"}[5m])) by (le)",
+              "expr": "sum(rate(task_attempt_bucket{operation=\"TransferActiveTaskCommand\", service_name=\"history\"}[5m])) by (le)",
               "interval": "",
               "legendFormat": "",
               "refId": "E"
@@ -1680,7 +1680,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(task_latency_processing_bucket{operation=~\"TimerActive.*\", type=\"history\"}[5m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(task_latency_processing_bucket{operation=~\"TimerActive.*\", service_name=\"history\"}[5m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -1768,7 +1768,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(task_latency_bucket{operation=~\"TimerActive.*\", type=\"history\"}[5m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(task_latency_bucket{operation=~\"TimerActive.*\", service_name=\"history\"}[5m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -1856,7 +1856,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(task_latency_queue_bucket{operation=~\"TimerActive.*\", type=\"history\"}[5m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(task_latency_queue_bucket{operation=~\"TimerActive.*\", service_name=\"history\"}[5m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -1944,7 +1944,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(task_attempt_bucket{operation=~\"TimerActive.*\", type=\"history\"}[5m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(task_attempt_bucket{operation=~\"TimerActive.*\", service_name=\"history\"}[5m])) by (operation, le))",
           "hide": true,
           "interval": "",
           "legendFormat": "{{ operation }}",
@@ -1968,14 +1968,14 @@
           "refId": "C"
         },
         {
-          "expr": "histogram_quantile(0.95, sum(rate(task_attempt_bucket{operation=\"TimerActiveTaskCommand\", type=\"history\"}[5m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(task_attempt_bucket{operation=\"TimerActiveTaskCommand\", service_name=\"history\"}[5m])) by (operation, le))",
           "hide": true,
           "interval": "",
           "legendFormat": "",
           "refId": "D"
         },
         {
-          "expr": "sum(rate(task_attempt_bucket{operation=\"TimerActiveTaskCommand\", type=\"history\"}[5m])) by (le)",
+          "expr": "sum(rate(task_attempt_bucket{operation=\"TimerActiveTaskCommand\", service_name=\"history\"}[5m])) by (le)",
           "interval": "",
           "legendFormat": "",
           "refId": "E"
@@ -3509,79 +3509,79 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(schedule_activity_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(schedule_activity_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "schedule_activity",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(complete_workflow_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(complete_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "complete_workflow",
           "refId": "B"
         },
         {
-          "expr": "sum(rate(fail_workflow_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(fail_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "fail_workflow",
           "refId": "C"
         },
         {
-          "expr": "sum(rate(cancel_workflow_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(cancel_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "cancel_workflow",
           "refId": "D"
         },
         {
-          "expr": "sum(rate(start_timer_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(start_timer_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "start_timer",
           "refId": "E"
         },
         {
-          "expr": "sum(rate(cancel_activity_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(cancel_activity_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "cancel_activity",
           "refId": "F"
         },
         {
-          "expr": "sum(rate(cancel_timer_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(cancel_timer_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "cancel_timer",
           "refId": "G"
         },
         {
-          "expr": "sum(rate(record_marker_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(record_marker_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "record_marker",
           "refId": "H"
         },
         {
-          "expr": "sum(rate(cancel_external_workflow_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(cancel_external_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "cancel_external_workflow",
           "refId": "I"
         },
         {
-          "expr": "sum(rate(continue_as_new_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(continue_as_new_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "continue_as_new",
           "refId": "J"
         },
         {
-          "expr": "sum(rate(signal_external_workflow_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(signal_external_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "signal_external_workflow",
           "refId": "K"
         },
         {
-          "expr": "sum(rate(upsert_workflow_search_attributes_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(upsert_workflow_search_attributes_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "upsert_searchable_attributes",
           "refId": "L"
         },
         {
-          "expr": "sum(rate(child_workflow_command{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(child_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "child_workflow",
           "refId": "M"
@@ -3669,21 +3669,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(service_requests{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(service_requests{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "commands_complete",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(complete_workflow_task_sticky_enabled_count{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(complete_workflow_task_sticky_enabled_count{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "sticky_tasks",
           "refId": "B"
         },
         {
-          "expr": "sum(rate(complete_workflow_task_sticky_disabled_count{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(complete_workflow_task_sticky_disabled_count{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "non_sticky_tasks",
           "refId": "C"
@@ -3771,7 +3771,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(failed_workflow_tasks{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(failed_workflow_tasks{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "failed",
           "refId": "A"
@@ -3859,7 +3859,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(empty_completion_commands{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(empty_completion_commands{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "empty_decision",
           "refId": "A"
@@ -3947,7 +3947,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(multiple_completion_commands{type=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum(rate(multiple_completion_commands{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
           "legendFormat": "empty_workflow",
           "refId": "A"
@@ -4049,7 +4049,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (operation) (rate(stale_mutable_state{type=\"history\"}[5m]))",
+          "expr": "sum by (operation) (rate(stale_mutable_state{service_name=\"history\"}[5m]))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -4239,7 +4239,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(acquire_shards_latency_bucket{type=\"history\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(acquire_shards_latency_bucket{service_name=\"history\"}[5m])) by (le))",
           "interval": "",
           "legendFormat": "acquire_latency",
           "refId": "A"
@@ -4509,7 +4509,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(sharditem_acquisition_latency{type=\"history\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(sharditem_acquisition_latency{service_name=\"history\"}[5m])) by (le))",
           "interval": "",
           "legendFormat": "acquire_latency",
           "refId": "A"
@@ -4611,13 +4611,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (rate(persistence_requests{type=\"history\"}[5m]))",
+          "expr": "sum (rate(persistence_requests{service_name=\"history\"}[5m]))",
           "interval": "",
           "legendFormat": "requests",
           "refId": "A"
         },
         {
-          "expr": "sum (rate(persistence_errors{type=\"history\"}[5m]))",
+          "expr": "sum (rate(persistence_errors{service_name=\"history\"}[5m]))",
           "interval": "",
           "legendFormat": "errors",
           "refId": "B"
@@ -4705,7 +4705,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (operation) (rate(persistence_requests{type=\"history\"}[5m]))",
+          "expr": "sum by (operation) (rate(persistence_requests{service_name=\"history\"}[5m]))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
@@ -4881,7 +4881,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(persistence_latency_bucket{type=\"history\"}[5m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(persistence_latency_bucket{service_name=\"history\"}[5m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
