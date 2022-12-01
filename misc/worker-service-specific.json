@@ -2306,34 +2306,13 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "thanos",
-          "value": "thanos"
-        },
-        "description": null,
-        "error": null,
-        "hide": 0,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "datasource",
-        "options": [],
-        "query": "prometheus",
-        "queryValue": "",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "type": "datasource"
-      },
-      {
         "allValue": null,
         "current": {
           "selected": false,
           "text": "stage-1",
           "value": "stage-1"
         },
-        "datasource": "${datasource}",
+        "datasource": null,
         "definition": "label_values(service_requests,cluster)",
         "description": null,
         "error": null,
