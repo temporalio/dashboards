@@ -81,14 +81,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(rate(task_requests{cluster=\"$cluster\",service=\"$service\",operation=~\"Visibility.*\"}[1m]))",
+          "expr": "sum(rate(task_requests{operation=~\"Visibility.*\"}[1m]))",
           "interval": "",
           "legendFormat": "requests",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum(rate(task_errors{cluster=\"$cluster\",service=\"$service\",operation=~\"Visibility.*\"}[1m]))",
+          "expr": "sum(rate(task_errors{operation=~\"Visibility.*\"}[1m]))",
           "interval": "",
           "legendFormat": "errors",
           "refId": "B"
@@ -179,14 +179,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (rate(task_errors_discarded{cluster=\"$cluster\",service=\"$service\",operation=~\"Visibility.*\"}[1m]))",
+          "expr": "sum (rate(task_errors_discarded{operation=~\"Visibility.*\"}[1m]))",
           "interval": "",
           "legendFormat": "discarded",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum (rate(task_errors_limit_exceeded_counter{cluster=\"$cluster\",service=\"$service\",operation=~\"Visibility.*\"}[1m]))",
+          "expr": "sum (rate(task_errors_limit_exceeded_counter{operation=~\"Visibility.*\"}[1m]))",
           "interval": "",
           "legendFormat": "",
           "refId": "B"
@@ -277,7 +277,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (operation) (rate(task_requests{cluster=\"$cluster\",service=\"$service\",operation=~\"Visibility.*\"}[1m]))",
+          "expr": "sum by (operation) (rate(task_requests{operation=~\"Visibility.*\"}[1m]))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -368,7 +368,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (operation) (rate(task_errors{cluster=\"$cluster\",service=\"$service\",operation=~\"Visibility.*\"}[1m]))",
+          "expr": "sum by (operation) (rate(task_errors{operation=~\"Visibility.*\"}[1m]))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -460,7 +460,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(task_attempt_bucket{cluster=\"$cluster\",service=\"$service\",operation=~\"Visibility.*\"}[1m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(task_attempt_bucket{operation=~\"Visibility.*\"}[1m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -558,7 +558,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(sum by (operation) (rate(task_latency_processing_sum{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m]))) / (sum by (operation) (rate(task_latency_processing_count{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m])))",
+          "expr": "(sum by (operation) (rate(task_latency_processing_sum{operation=~\"Visibility.*\"}[1m]))) / (sum by (operation) (rate(task_latency_processing_count{operation=~\"Visibility.*\"}[1m])))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -656,7 +656,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.50, sum(rate(task_latency_processing_bucket{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m])) by (operation, le))",
+          "expr": "histogram_quantile(0.50, sum(rate(task_latency_processing_bucket{operation=~\"Visibility.*\"}[1m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -754,7 +754,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(task_latency_processing_bucket{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(task_latency_processing_bucket{operation=~\"Visibility.*\"}[1m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -852,7 +852,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(sum by (operation) (rate(task_latency_sum{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m]))) / (sum by (operation) (rate(task_latency_count{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m])))",
+          "expr": "(sum by (operation) (rate(task_latency_sum{operation=~\"Visibility.*\"}[1m]))) / (sum by (operation) (rate(task_latency_count{operation=~\"Visibility.*\"}[1m])))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -950,7 +950,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.50, sum(rate(task_latency_bucket{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m])) by (operation, le))",
+          "expr": "histogram_quantile(0.50, sum(rate(task_latency_bucket{operation=~\"Visibility.*\"}[1m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -1048,7 +1048,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(task_latency_bucket{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(task_latency_bucket{operation=~\"Visibility.*\"}[1m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -1146,7 +1146,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(sum by (operation) (rate(task_latency_queue_sum{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m]))) / (sum by (operation) (rate(task_latency_queue_count{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m])))",
+          "expr": "(sum by (operation) (rate(task_latency_queue_sum{operation=~\"Visibility.*\"}[1m]))) / (sum by (operation) (rate(task_latency_queue_count{operation=~\"Visibility.*\"}[1m])))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -1244,7 +1244,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.50, sum(rate(task_latency_queue_bucket{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m])) by (operation, le))",
+          "expr": "histogram_quantile(0.50, sum(rate(task_latency_queue_bucket{operation=~\"Visibility.*\"}[1m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -1340,7 +1340,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(task_latency_processing_bucket{cluster=\"$cluster\",operation=~\"Visibility.*\",service=\"$service\"}[1m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(task_latency_processing_bucket{operation=~\"Visibility.*\"}[1m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -1447,14 +1447,14 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum (rate(visibility_persistence_requests{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[5m]))",
+              "expr": "sum (rate(visibility_persistence_requests{visibility_type=\"standard_visibility\"}[5m]))",
               "interval": "",
               "legendFormat": "requests",
               "refId": "A"
             },
             {
               "exemplar": true,
-              "expr": "sum (rate(visibility_persistence_errors{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[5m]))",
+              "expr": "sum (rate(visibility_persistence_errors{visibility_type=\"standard_visibility\"}[5m]))",
               "interval": "",
               "legendFormat": "errors",
               "refId": "B"
@@ -1552,14 +1552,14 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum(rate(visibility_persistence_invalid_argument{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))",
+              "expr": "sum(rate(visibility_persistence_invalid_argument{visibility_type=\"standard_visibility\"}[1m]))",
               "interval": "",
               "legendFormat": "invalid argument",
               "refId": "A"
             },
             {
               "exemplar": true,
-              "expr": "sum(rate(visibility_persistence_resource_exhausted{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))",
+              "expr": "sum(rate(visibility_persistence_resource_exhausted{visibility_type=\"standard_visibility\"}[1m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "resource exhausted",
@@ -1567,7 +1567,7 @@
             },
             {
               "exemplar": true,
-              "expr": "sum(rate(visibility_persistence_condition_failed{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))",
+              "expr": "sum(rate(visibility_persistence_condition_failed{visibility_type=\"standard_visibility\"}[1m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "condition failed",
@@ -1575,7 +1575,7 @@
             },
             {
               "exemplar": true,
-              "expr": "sum(rate(visibility_persistence_timeout{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))",
+              "expr": "sum(rate(visibility_persistence_timeout{visibility_type=\"standard_visibility\"}[1m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "timeout",
@@ -1583,7 +1583,7 @@
             },
             {
               "exemplar": true,
-              "expr": "sum(rate(visibility_persistence_not_found{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))",
+              "expr": "sum(rate(visibility_persistence_not_found{visibility_type=\"standard_visibility\"}[1m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "not found",
@@ -1591,7 +1591,7 @@
             },
             {
               "exemplar": true,
-              "expr": "sum(rate(visibility_persistence_internal{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))",
+              "expr": "sum(rate(visibility_persistence_internal{visibility_type=\"standard_visibility\"}[1m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "internal",
@@ -1599,7 +1599,7 @@
             },
             {
               "exemplar": true,
-              "expr": "sum(rate(visibility_persistence_unavailable{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))",
+              "expr": "sum(rate(visibility_persistence_unavailable{visibility_type=\"standard_visibility\"}[1m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "unavailable",
@@ -1696,7 +1696,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum by (operation) (rate(visibility_persistence_requests{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))",
+              "expr": "sum by (operation) (rate(visibility_persistence_requests{visibility_type=\"standard_visibility\"}[1m]))",
               "interval": "",
               "legendFormat": "{{operation}}",
               "refId": "A"
@@ -1793,7 +1793,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum by (operation) (rate(visibility_persistence_errors{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))",
+              "expr": "sum by (operation) (rate(visibility_persistence_errors{visibility_type=\"standard_visibility\"}[1m]))",
               "interval": "",
               "legendFormat": "{{operation}}",
               "refId": "A"
@@ -1889,7 +1889,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "(sum by (operation) (rate(visibility_persistence_latency_sum{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m]))) / (sum by (operation) (rate(visibility_persistence_latency_count{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m])))",
+              "expr": "(sum by (operation) (rate(visibility_persistence_latency_sum{visibility_type=\"standard_visibility\"}[1m]))) / (sum by (operation) (rate(visibility_persistence_latency_count{visibility_type=\"standard_visibility\"}[1m])))",
               "interval": "",
               "legendFormat": "{{operation}}",
               "refId": "A"
@@ -1985,7 +1985,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "histogram_quantile(0.50, sum(rate(visibility_persistence_latency_bucket{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m])) by (operation, le))",
+              "expr": "histogram_quantile(0.50, sum(rate(visibility_persistence_latency_bucket{visibility_type=\"standard_visibility\"}[1m])) by (operation, le))",
               "interval": "",
               "legendFormat": "{{operation}}",
               "refId": "A"
@@ -2081,7 +2081,7 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "histogram_quantile(0.95, sum(rate(visibility_persistence_latency_bucket{cluster=\"$cluster\",service=\"$service\",visibility_type=\"standard_visibility\"}[1m])) by (operation, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(visibility_persistence_latency_bucket{visibility_type=\"standard_visibility\"}[1m])) by (operation, le))",
               "interval": "",
               "legendFormat": "{{operation}}",
               "refId": "A"
@@ -2195,14 +2195,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum (rate(visibility_persistence_requests{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[5m]))",
+          "expr": "sum (rate(visibility_persistence_requests{visibility_type=\"advanced_visibility\"}[5m]))",
           "interval": "",
           "legendFormat": "requests",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum (rate(visibility_persistence_errors{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[5m]))",
+          "expr": "sum (rate(visibility_persistence_errors{visibility_type=\"advanced_visibility\"}[5m]))",
           "interval": "",
           "legendFormat": "errors",
           "refId": "B"
@@ -2300,14 +2300,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(rate(visibility_persistence_invalid_argument{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))",
+          "expr": "sum(rate(visibility_persistence_invalid_argument{visibility_type=\"advanced_visibility\"}[1m]))",
           "interval": "",
           "legendFormat": "invalid argument",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum(rate(visibility_persistence_resource_exhausted{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))",
+          "expr": "sum(rate(visibility_persistence_resource_exhausted{visibility_type=\"advanced_visibility\"}[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "resource exhausted",
@@ -2315,7 +2315,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(rate(visibility_persistence_condition_failed{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))",
+          "expr": "sum(rate(visibility_persistence_condition_failed{visibility_type=\"advanced_visibility\"}[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "condition failed",
@@ -2323,7 +2323,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(rate(visibility_persistence_timeout{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))",
+          "expr": "sum(rate(visibility_persistence_timeout{visibility_type=\"advanced_visibility\"}[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "timeout",
@@ -2331,7 +2331,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(rate(visibility_persistence_not_found{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))",
+          "expr": "sum(rate(visibility_persistence_not_found{visibility_type=\"advanced_visibility\"}[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "not found",
@@ -2339,7 +2339,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(rate(visibility_persistence_internal{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))",
+          "expr": "sum(rate(visibility_persistence_internal{visibility_type=\"advanced_visibility\"}[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "internal",
@@ -2347,7 +2347,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(rate(visibility_persistence_unavailable{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))",
+          "expr": "sum(rate(visibility_persistence_unavailable{visibility_type=\"advanced_visibility\"}[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "unavailable",
@@ -2446,7 +2446,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (operation) (rate(visibility_persistence_requests{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))",
+          "expr": "sum by (operation) (rate(visibility_persistence_requests{visibility_type=\"advanced_visibility\"}[1m]))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
@@ -2545,7 +2545,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (operation) (rate(visibility_persistence_errors{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))",
+          "expr": "sum by (operation) (rate(visibility_persistence_errors{visibility_type=\"advanced_visibility\"}[1m]))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
@@ -2643,7 +2643,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(sum by (operation) (rate(visibility_persistence_latency_sum{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m]))) / (sum by (operation) (rate(visibility_persistence_latency_count{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m])))",
+          "expr": "(sum by (operation) (rate(visibility_persistence_latency_sum{visibility_type=\"advanced_visibility\"}[1m]))) / (sum by (operation) (rate(visibility_persistence_latency_count{visibility_type=\"advanced_visibility\"}[1m])))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
@@ -2741,7 +2741,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.50, sum(rate(visibility_persistence_latency_bucket{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m])) by (operation, le))",
+          "expr": "histogram_quantile(0.50, sum(rate(visibility_persistence_latency_bucket{visibility_type=\"advanced_visibility\"}[1m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
@@ -2839,7 +2839,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(visibility_persistence_latency_bucket{cluster=\"$cluster\",service=\"$service\",visibility_type=\"advanced_visibility\"}[1m])) by (operation, le))",
+          "expr": "histogram_quantile(0.95, sum(rate(visibility_persistence_latency_bucket{visibility_type=\"advanced_visibility\"}[1m])) by (operation, le))",
           "interval": "",
           "legendFormat": "{{operation}}",
           "refId": "A"
@@ -2945,42 +2945,42 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum (rate(elasticsearch_bulk_processor_requests{cluster=\"$cluster\",service=\"$service\"}[1m]))",
+          "expr": "sum (rate(elasticsearch_bulk_processor_requests{service=\"$service\"}[1m]))",
           "interval": "",
           "legendFormat": "requests",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum (rate(elasticsearch_bulk_processor_errors{cluster=\"$cluster\",service=\"$service\"}[1m])) by (http_status, le)",
+          "expr": "sum (rate(elasticsearch_bulk_processor_errors{service=\"$service\"}[1m])) by (http_status, le)",
           "interval": "",
           "legendFormat": "{{http_status}} errors",
           "refId": "B"
         },
         {
           "exemplar": true,
-          "expr": "sum (rate(elasticsearch_bulk_processor_retries{cluster=\"$cluster\",service=\"$service\"}[1m])) by (http_status, le)",
+          "expr": "sum (rate(elasticsearch_bulk_processor_retries{service=\"$service\"}[1m])) by (http_status, le)",
           "interval": "",
           "legendFormat": "{{http_status}} retryable errors",
           "refId": "C"
         },
         {
           "exemplar": true,
-          "expr": "sum (rate(elasticsearch_bulk_processor_corrupted_data{cluster=\"$cluster\",service=\"$service\"}[1m]))",
+          "expr": "sum (rate(elasticsearch_bulk_processor_corrupted_data{service=\"$service\"}[1m]))",
           "interval": "",
           "legendFormat": "corrupted data errors",
           "refId": "D"
         },
         {
           "exemplar": true,
-          "expr": "sum (rate(elasticsearch_bulk_processor_deadlock{cluster=\"$cluster\",service=\"$service\"}[1m]))",
+          "expr": "sum (rate(elasticsearch_bulk_processor_deadlock{service=\"$service\"}[1m]))",
           "interval": "",
           "legendFormat": "deadlock",
           "refId": "E"
         },
         {
           "exemplar": true,
-          "expr": "sum (rate(elasticsearch_bulk_processor_duplicate_request{cluster=\"$cluster\",service=\"$service\"}[1m]))",
+          "expr": "sum (rate(elasticsearch_bulk_processor_duplicate_request{service=\"$service\"}[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "duplicate request warning",
@@ -3074,14 +3074,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_bulk_size_bucket{cluster=\"$cluster\",service=\"$service\"}[1m])) by (le))*1000",
+          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_bulk_size_bucket{service=\"$service\"}[1m])) by (le))*1000",
           "interval": "",
           "legendFormat": "bulk size",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_queued_requests_bucket{cluster=\"$cluster\",service=\"$service\"}[1m])) by (le))*1000",
+          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_queued_requests_bucket{service=\"$service\"}[1m])) by (le))*1000",
           "hide": false,
           "interval": "",
           "legendFormat": "queued requests",
@@ -3175,7 +3175,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_request_latency_bucket{cluster=\"$cluster\",service=\"$service\"}[1m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_request_latency_bucket{service=\"$service\"}[1m])) by (le))",
           "hide": false,
           "interval": "",
           "legendFormat": "request latency",
@@ -3269,14 +3269,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_wait_add_latency_bucket{cluster=\"$cluster\",service=\"$service\"}[1m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_wait_add_latency_bucket{service=\"$service\"}[1m])) by (le))",
           "interval": "",
           "legendFormat": "wait add latency",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_wait_start_latency_bucket{cluster=\"$cluster\",service=\"$service\"}[1m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_wait_start_latency_bucket{service=\"$service\"}[1m])) by (le))",
           "hide": false,
           "interval": "",
           "legendFormat": "wait start latency",
@@ -3284,7 +3284,7 @@
         },
         {
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_commit_latency_bucket{cluster=\"$cluster\",service=\"$service\"}[1m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(elasticsearch_bulk_processor_commit_latency_bucket{service=\"$service\"}[1m])) by (le))",
           "hide": false,
           "interval": "",
           "legendFormat": "commit latency",
@@ -3388,14 +3388,14 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "sum (rate(elasticsearch_document_parse_failures_counter{cluster=\"$cluster\",service=\"$service\"}[1m]))",
+              "expr": "sum (rate(elasticsearch_document_parse_failures_counter{service=\"$service\"}[1m]))",
               "interval": "",
               "legendFormat": "doc parse errors",
               "refId": "A"
             },
             {
               "exemplar": true,
-              "expr": "sum (rate(elasticsearch_document_generate_failures_counter{cluster=\"$cluster\",service=\"$service\"}[1m]))",
+              "expr": "sum (rate(elasticsearch_document_generate_failures_counter{service=\"$service\"}[1m]))",
               "interval": "",
               "legendFormat": "doc generate errors",
               "refId": "B"
@@ -3487,21 +3487,21 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "add_search_attributes_workflow_success{cluster=\"$cluster\",service=\"$service\"}",
+              "expr": "add_search_attributes_workflow_success{service=\"$service\"}",
               "interval": "",
               "legendFormat": "success",
               "refId": "A"
             },
             {
               "exemplar": true,
-              "expr": "add_search_attributes_workflow_failure{cluster=\"$cluster\",service=\"$service\"}",
+              "expr": "add_search_attributes_workflow_failure{service=\"$service\"}",
               "interval": "",
               "legendFormat": "errors",
               "refId": "B"
             },
             {
               "exemplar": true,
-              "expr": "add_search_attributes_failures{cluster=\"$cluster\",service=\"$service\"}",
+              "expr": "add_search_attributes_failures{service=\"$service\"}",
               "hide": false,
               "interval": "",
               "legendFormat": "activity errors",
@@ -3561,88 +3561,10 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": [
-      {
-        "current": {
-          "selected": true,
-          "text": "Prometheus-Linux",
-          "value": "Prometheus-Linux"
-        },
-        "description": null,
-        "error": null,
-        "hide": 0,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "datasource",
-        "options": [],
-        "query": "prometheus",
-        "queryValue": "",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "type": "datasource"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "isNone": true,
-          "selected": false,
-          "text": "None",
-          "value": ""
-        },
-        "datasource": "${datasource}",
-        "definition": "label_values(service_requests,cluster)",
-        "description": null,
-        "error": null,
-        "hide": 0,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "cluster",
-        "options": [],
-        "query": {
-          "query": "label_values(service_requests,cluster)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "isNone": true,
-          "selected": false,
-          "text": "None",
-          "value": ""
-        },
-        "datasource": "${datasource}",
-        "definition": "label_values(service_requests,service)",
-        "description": null,
-        "error": null,
-        "hide": 0,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "service",
-        "options": [],
-        "query": {
-          "query": "label_values(service_requests,service)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      }
-    ]
+    "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
