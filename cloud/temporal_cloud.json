@@ -2171,6 +2171,107 @@
       ],
       "title": "Sync Match Rate",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 79
+      },
+      "id": 38,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "(\n    (\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[5m]\n          )\n        )\n      +\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[5m]\n          )\n        )\n    )\n  /\n    (\n        (\n            sum by(temporal_namespace) (\n              rate(\n                temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[5m]\n              )\n            )\n          +\n            sum by(temporal_namespace) (\n              rate(\n                temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[5m]\n              )\n            )\n        )\n      +\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_timeout_count{temporal_namespace=~\"$temporal_namespace\"}[5m]\n          )\n        )\n    )\n)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Pull Success Rate",
+      "type": "timeseries"
     }
   ],
   "refresh": false,
