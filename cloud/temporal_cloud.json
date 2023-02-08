@@ -2270,7 +2270,7 @@
           "refId": "A"
         }
       ],
-      "title": "Pull Success Rate",
+      "title": "Poll Success Rate",
       "type": "timeseries"
     }
   ],
