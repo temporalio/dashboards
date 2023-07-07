@@ -799,6 +799,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -857,7 +858,7 @@
         "x": 12,
         "y": 21
       },
-      "id": 11,
+      "id": 41,
       "options": {
         "legend": {
           "calcs": [
@@ -882,10 +883,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "exemplar": false,
+          "editorMode": "code",
+          "exemplar": true,
           "expr": "sum(rate(temporal_cloud_v0_workflow_timeout_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
           "interval": "",
           "legendFormat": "{{temporal_namespace}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1092,6 +1095,419 @@
     },
     {
       "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "id": 40,
+      "panels": [],
+      "title": "Schedules",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 40
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(temporal_cloud_v0_schedule_action_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Successful Schedule Actions",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 12,
+        "y": 40
+      },
+      "id": 42,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(temporal_cloud_v0_schedule_buffer_overruns_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Schedule Buffer Overruns",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 16,
+        "y": 40
+      },
+      "id": 43,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(temporal_cloud_v0_schedule_missed_catchup_window_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Schedule Missed Catchup Windows",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 20,
+        "y": 40
+      },
+      "id": 44,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(temporal_cloud_v0_schedule_rate_limited_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Schedules Rate Limited",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
       "datasource": {
         "type": "datasource",
         "uid": "grafana"
@@ -1100,7 +1516,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 49
       },
       "id": 19,
       "panels": [],
@@ -1177,7 +1593,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 40
+        "y": 50
       },
       "id": 6,
       "options": {
@@ -1204,10 +1620,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
           "expr": "sum(rate(temporal_cloud_v0_frontend_service_request_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace,operation)",
           "interval": "",
           "legendFormat": "{{temporal_namespace}} - {{operation}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1275,7 +1693,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 40
+        "y": 50
       },
       "id": 8,
       "options": {
@@ -1318,7 +1736,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 49
+        "y": 59
       },
       "id": 36,
       "panels": [],
@@ -1370,7 +1788,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1386,7 +1805,7 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 50
+        "y": 60
       },
       "id": 30,
       "options": {
@@ -1412,7 +1831,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{operation=\"StartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"StartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
           "legendFormat": "{{ temporal_namespace }}  - 50th Percentile",
           "range": true,
           "refId": "A"
@@ -1423,7 +1842,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{operation=\"StartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"StartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
           "hide": false,
           "legendFormat": "{{ temporal_namespace }}  - 99th Percentile",
           "range": true,
@@ -1478,7 +1897,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1494,7 +1914,7 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 50
+        "y": 60
       },
       "id": 1,
       "options": {
@@ -1520,7 +1940,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{operation=\"SignalWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
           "legendFormat": "{{ temporal_namespace }}  - 50th Percentile",
           "range": true,
           "refId": "A"
@@ -1531,7 +1951,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{operation=\"SignalWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
           "hide": false,
           "legendFormat": "{{ temporal_namespace }}  - 99th Percentile",
           "range": true,
@@ -1586,7 +2006,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1602,7 +2023,7 @@
         "h": 10,
         "w": 8,
         "x": 16,
-        "y": 50
+        "y": 60
       },
       "id": 35,
       "options": {
@@ -1628,7 +2049,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{operation=\"SignalWithStartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWithStartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
           "legendFormat": "{{ temporal_namespace }}  - 50th Percentile",
           "range": true,
           "refId": "A"
@@ -1639,7 +2060,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{operation=\"SignalWithStartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWithStartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
           "hide": false,
           "legendFormat": "{{ temporal_namespace }}  - 99th Percentile",
           "range": true,
@@ -1659,7 +2080,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 60
+        "y": 70
       },
       "id": 23,
       "panels": [],
@@ -1737,7 +2158,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 61
+        "y": 71
       },
       "id": 24,
       "options": {
@@ -1836,7 +2257,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 61
+        "y": 71
       },
       "id": 26,
       "options": {
@@ -1935,7 +2356,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 70
+        "y": 80
       },
       "id": 25,
       "options": {
@@ -2034,7 +2455,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 70
+        "y": 80
       },
       "id": 27,
       "options": {
@@ -2134,7 +2555,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 79
+        "y": 89
       },
       "id": 37,
       "options": {
@@ -2235,7 +2656,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 79
+        "y": 89
       },
       "id": 38,
       "options": {
