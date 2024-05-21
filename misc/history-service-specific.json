@@ -3509,82 +3509,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(schedule_activity_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
+          "expr": "sum by (commandType) (rate(command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
           "interval": "",
-          "legendFormat": "schedule_activity",
+          "legendFormat": "{{commandType}}",
           "refId": "A"
-        },
-        {
-          "expr": "sum(rate(complete_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "complete_workflow",
-          "refId": "B"
-        },
-        {
-          "expr": "sum(rate(fail_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "fail_workflow",
-          "refId": "C"
-        },
-        {
-          "expr": "sum(rate(cancel_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "cancel_workflow",
-          "refId": "D"
-        },
-        {
-          "expr": "sum(rate(start_timer_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "start_timer",
-          "refId": "E"
-        },
-        {
-          "expr": "sum(rate(cancel_activity_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "cancel_activity",
-          "refId": "F"
-        },
-        {
-          "expr": "sum(rate(cancel_timer_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "cancel_timer",
-          "refId": "G"
-        },
-        {
-          "expr": "sum(rate(record_marker_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "record_marker",
-          "refId": "H"
-        },
-        {
-          "expr": "sum(rate(cancel_external_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "cancel_external_workflow",
-          "refId": "I"
-        },
-        {
-          "expr": "sum(rate(continue_as_new_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "continue_as_new",
-          "refId": "J"
-        },
-        {
-          "expr": "sum(rate(signal_external_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "signal_external_workflow",
-          "refId": "K"
-        },
-        {
-          "expr": "sum(rate(upsert_workflow_search_attributes_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "upsert_searchable_attributes",
-          "refId": "L"
-        },
-        {
-          "expr": "sum(rate(child_workflow_command{service_name=\"history\", operation=\"RespondWorkflowTaskCompleted\"}[5m]))",
-          "interval": "",
-          "legendFormat": "child_workflow",
-          "refId": "M"
         }
       ],
       "thresholds": [],
