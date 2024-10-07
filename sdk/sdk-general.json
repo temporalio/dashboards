@@ -2636,7 +2636,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace) (rate(temporal_sticky_cache_miss{namespace=~\"Namespace\"}[5m]))",
+              "expr": "sum by (namespace) (rate(temporal_sticky_cache_miss{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "{{ namespace  }}",
               "refId": "A"
@@ -2724,7 +2724,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace) (rate(temporal_sticky_cache_total_forced_eviction{namespace=~\"Namespace\"}[5m]))",
+              "expr": "sum by (namespace) (rate(temporal_sticky_cache_total_forced_eviction{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "{{ namespace  }}",
               "refId": "A"
