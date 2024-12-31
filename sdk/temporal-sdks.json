@@ -3046,7 +3046,7 @@
       },
       "id": 54,
       "panels": [],
-      "title": "Slots available",
+      "title": "Slots",
       "type": "row"
     },
     {
@@ -3109,8 +3109,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 24,
+        "h": 11,
+        "w": 12,
         "x": 0,
         "y": 120
       },
@@ -3141,25 +3141,112 @@
           "editorMode": "code",
           "expr": "temporal_worker_task_slots_available{namespace=~\"$namespace\"}",
           "intervalFactor": 2,
-          "legendFormat": "[Java/Go-SDK]: namespace: {{ namespace }}; worker_type:{{worker_type}}",
+          "legendFormat": "[Java/Go/Core-SDK]: namespace: {{ namespace }}; worker_type:{{worker_type}}",
           "range": true,
           "refId": "A"
+        }
+      ],
+      "title": "Slots Available",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 120
+      },
+      "id": 68,
+      "interval": "5s",
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "v10.4.0",
+      "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "temporal_worker_task_slots_available{namespace=~\"$namespace\"}",
-          "hide": false,
+          "expr": "temporal_worker_task_slots_used{namespace=~\"$namespace\"}",
           "intervalFactor": 2,
-          "legendFormat": "[Core-SDK]: namespace: {{ namespace }}; worker_type:{{worker_type}}",
+          "legendFormat": "[Java/Go/Core-SDK]: namespace: {{ namespace }}; worker_type:{{worker_type}}",
           "range": true,
-          "refId": "B"
+          "refId": "A"
         }
       ],
-      "title": "Slots Available",
+      "title": "Slots Used",
       "type": "timeseries"
     },
     {
@@ -3168,7 +3255,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 129
+        "y": 131
       },
       "id": 38,
       "panels": [],
@@ -3238,7 +3325,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 130
+        "y": 132
       },
       "id": 42,
       "interval": "5s",
@@ -3267,22 +3354,9 @@
           "editorMode": "code",
           "expr": "temporal_sticky_cache_size{namespace=~\"$namespace\"}",
           "intervalFactor": 2,
-          "legendFormat": "[Java/Go-SDK]: namespace: {{ namespace }}; task_queue: {{task_queue}}",
+          "legendFormat": "[Java/Go/Core-SDK]: namespace: {{ namespace }}; task_queue: {{task_queue}}",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$datasource"
-          },
-          "editorMode": "code",
-          "expr": "temporal_sticky_cache_size{namespace=~\"$namespace\"}",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "[Core-SDK]: namespace: {{ namespace }}; task_queue: {{task_queue}}",
-          "range": true,
-          "refId": "B"
         }
       ],
       "title": "Sticky Cache Size",
@@ -3351,7 +3425,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 130
+        "y": 132
       },
       "id": 63,
       "interval": "5s",
@@ -3464,7 +3538,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 138
+        "y": 140
       },
       "id": 45,
       "interval": "5s",
@@ -3577,7 +3651,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 138
+        "y": 140
       },
       "id": 43,
       "interval": "5s",
@@ -3687,6 +3761,6 @@
   "timezone": "utc",
   "title": "Temporal SDKs",
   "uid": "uvNCObMHzd",
-  "version": 4,
+  "version": 3,
   "weekStart": ""
 }
