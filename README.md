@@ -11,7 +11,7 @@ We welcome contributions to existing as well as new dashboards that can help the
 ## Directory structure
 
 * [`server/`](server): Dashboards for Temporal Server metrics
-* [`sdk/`](sdk): Dashboards for Temporal SDK metrics. The dashboard includes queries for Java, Go, and Core SDKs.
+* [`sdk/`](sdk): Dashboards for Temporal SDK metrics. This includes two dashboards, one for Go/Java SDK and one Core based SDKs.
 * [`misc/`](misc): Server metrics dashboards that have not been fully tested yet or need improvements
 
 ## Usage
