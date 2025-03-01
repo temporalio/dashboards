@@ -2829,7 +2829,7 @@
   },
   "timepicker": {},
   "timezone": "utc",
-  "title": "Temporal Core SDK Metrics",
+  "title": "Temporal Core SDK (OTel) Metrics",
   "uid": "",
   "version": 2,
   "weekStart": ""

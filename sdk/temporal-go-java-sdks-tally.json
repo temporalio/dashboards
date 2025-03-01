@@ -3421,7 +3421,7 @@
   },
   "timepicker": {},
   "timezone": "utc",
-  "title": "Temporal Java/Go SDK metrics",
+  "title": "Temporal Java/Go SDK (Tally) Metrics",
   "uid": "",
   "version": 3,
   "weekStart": ""
