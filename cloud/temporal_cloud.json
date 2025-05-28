@@ -849,19 +849,16 @@
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
+  "title": "Multi-region Namespaces",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "The transmission delay of Workflow updates and history events from the primary to the replica. [more info](https://docs.temporal.io/cloud/high-availability/monitor#metrics)",
+      "fieldConfig": {neInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -1552,41 +1549,43 @@
             ]
           }
         },
-        "overrides": [               "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 50
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
         },
-        "overrides": [               "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [               "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [               "color": "green",
-                "value": null
-              },
-              {
-  tend_service_request_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace,operation)",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(rate(temporal_cloud_v0_frontend_service_request_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace,operation)",
           "interval": "",
           "legendFormat": "{{temporal_namespace}} - {{operation}}",
           "range": true,
@@ -2252,7 +2251,7 @@
         "x": 12,
         "y": 71
       },
-      "id": 38,
+      "id": 25,
       "options": {
         "legend": {
           "calcs": [
@@ -2278,16 +2277,14 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "editorMode": "code",
           "exemplar": true,
-          "expr": "(\n    (\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n      +\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n    )\n  /\n    (\n        (\n            sum by(temporal_namespace) (\n              rate(\n                temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n              )\n            )\n          +\n            sum by(temporal_namespace) (\n              rate(\n                temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n              )\n            )\n        )\n      +\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_timeout_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n    )\n)",
+          "expr": "sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
           "interval": "",
           "legendFormat": "{{temporal_namespace}}",
-          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Poll Success Rate",
+      "title": "Worker Poll Success Sync",
       "type": "timeseries"
     },
     {
@@ -2357,7 +2354,7 @@
         "x": 0,
         "y": 80
       },
-      "id": 24,
+      "id": 27,
       "options": {
         "legend": {
           "calcs": [
@@ -2384,13 +2381,13 @@
             "uid": "${datasource}"
           },
           "exemplar": false,
-          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace) - sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
           "interval": "",
           "legendFormat": "{{temporal_namespace}}",
           "refId": "A"
         }
       ],
-      "title": "Worker Poll Success",
+      "title": "Worker Poll Success Async",
       "type": "timeseries"
     },
     {
@@ -2563,7 +2560,7 @@
         "x": 0,
         "y": 89
       },
-      "id": 25,
+      "id": 24,
       "options": {
         "legend": {
           "calcs": [
@@ -2589,14 +2586,14 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "exemplar": true,
-          "expr": "sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "exemplar": false,
+          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
           "interval": "",
           "legendFormat": "{{temporal_namespace}}",
           "refId": "A"
         }
       ],
-      "title": "Worker Poll Success Sync",
+      "title": "Worker Poll Success",
       "type": "timeseries"
     },
     {
@@ -2666,7 +2663,7 @@
         "x": 12,
         "y": 89
       },
-      "id": 27,
+      "id": 38,
       "options": {
         "legend": {
           "calcs": [
@@ -2692,14 +2689,16 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "exemplar": false,
-          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace) - sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "(\n    (\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n      +\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n    )\n  /\n    (\n        (\n            sum by(temporal_namespace) (\n              rate(\n                temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n              )\n            )\n          +\n            sum by(temporal_namespace) (\n              rate(\n                temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n              )\n            )\n        )\n      +\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_timeout_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n    )\n)",
           "interval": "",
           "legendFormat": "{{temporal_namespace}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Worker Poll Success Async",
+      "title": "Poll Success Rate",
       "type": "timeseries"
     },
     {
@@ -3074,6 +3073,5 @@
   "timezone": "",
   "title": "Temporal Cloud External Metrics",
   "uid": "fem3anbu421hcc",
-  "version": 1,
   "weekStart": ""
 }
