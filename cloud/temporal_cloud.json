@@ -1,4 +1,41 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_EXTERNAL_METRICS",
+      "label": "external metrics",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.4.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -26,341 +63,14 @@
   "graphTooltip": 0,
   "id": null,
   "links": [],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 0
-      },
-      "id": 17,
-      "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "refId": "A"
-        }
-      ],
-      "title": "State Transitions",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 1
-      },
-      "id": 2,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Max",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": true,
-          "expr": "sum(rate(temporal_cloud_v0_state_transition_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
-          "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
-          "refId": "A"
-        }
-      ],
-      "title": "State Transitions",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 4,
-        "x": 12,
-        "y": 1
-      },
-      "id": 10,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.1.4",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": true,
-          "expr": "sum(increase(temporal_cloud_v0_state_transition_count{temporal_namespace=~\"$temporal_namespace\"}[30d])) by (temporal_namespace)",
-          "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
-          "refId": "A"
-        }
-      ],
-      "title": "30 Day State Transitions",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 4,
-        "x": 16,
-        "y": 1
-      },
-      "id": 14,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.1.4",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": true,
-          "expr": "sum(increase(temporal_cloud_v0_state_transition_count{temporal_namespace=~\"$temporal_namespace\"}[7d])) by (temporal_namespace)",
-          "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
-          "refId": "A"
-        }
-      ],
-      "title": "7 Day State Transitions",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 4,
-        "x": 20,
-        "y": 1
-      },
-      "id": 15,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.1.4",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": true,
-          "expr": "sum(increase(temporal_cloud_v0_state_transition_count{temporal_namespace=~\"$temporal_namespace\"}[1d])) by (temporal_namespace)",
-          "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
-          "refId": "A"
-        }
-      ],
-      "title": "1 Day State Transitions",
-      "type": "stat"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 10
       },
       "id": 29,
       "panels": [],
@@ -372,17 +82,20 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
+      "description": "Approximate count of Temporal Cloud Actions per-second. Use `namespace_mode` to filter for active/standby actions for multi-region namespaces. More information about [billable actions](https://docs.temporal.io/cloud/pricing#action).",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -391,6 +104,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -420,7 +134,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "APS"
         },
         "overrides": []
       },
@@ -428,7 +143,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 1
       },
       "id": 31,
       "options": {
@@ -449,15 +164,16 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(temporal_cloud_v0_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "expr": "sum(rate(temporal_cloud_v0_total_action_count{temporal_namespace=~\"$temporal_namespace\", namespace_mode=\"active\"}[$__rate_interval])) by (temporal_namespace)",
           "instant": false,
           "interval": "",
           "legendFormat": "{{temporal_namespace}}",
@@ -501,7 +217,7 @@
         "h": 9,
         "w": 4,
         "x": 12,
-        "y": 11
+        "y": 1
       },
       "id": 32,
       "options": {
@@ -509,6 +225,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -516,19 +233,23 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.4",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(increase(temporal_cloud_v0_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[30d])) by (temporal_namespace)",
+          "expr": "sum(increase(temporal_cloud_v0_total_action_count{temporal_namespace=~\"$temporal_namespace\", namespace_mode=\"active\"}[30d])) by (temporal_namespace)",
           "interval": "",
           "legendFormat": "{{temporal_namespace}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -568,7 +289,7 @@
         "h": 9,
         "w": 4,
         "x": 16,
-        "y": 11
+        "y": 1
       },
       "id": 33,
       "options": {
@@ -576,6 +297,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -583,19 +305,24 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.4",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
-          "exemplar": true,
-          "expr": "sum(increase(temporal_cloud_v0_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[7d])) by (temporal_namespace)",
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(increase(temporal_cloud_v0_total_action_count{temporal_namespace=~\"$temporal_namespace\", namespace_mode=\"active\"}[7d])) by (temporal_namespace)",
+          "instant": false,
           "interval": "",
           "legendFormat": "{{temporal_namespace}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -635,7 +362,7 @@
         "h": 9,
         "w": 4,
         "x": 20,
-        "y": 11
+        "y": 1
       },
       "id": 34,
       "options": {
@@ -643,6 +370,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -650,19 +378,23 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.4",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(increase(temporal_cloud_v0_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[1d])) by (temporal_namespace)",
+          "expr": "sum(increase(temporal_cloud_v0_total_action_count{temporal_namespace=~\"$temporal_namespace\", namespace_mode=\"active\"}[1d])) by (temporal_namespace)",
           "interval": "",
           "legendFormat": "{{temporal_namespace}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -671,27 +403,14 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 10
       },
       "id": 21,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Workflows Overview",
       "type": "row"
     },
@@ -700,18 +419,20 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
+      "description": "Workflows that successfully completed.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -720,6 +441,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -757,7 +479,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 11
       },
       "id": 4,
       "options": {
@@ -778,11 +500,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
           "exemplar": true,
           "expr": "sum(rate(temporal_cloud_v0_workflow_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
@@ -799,18 +522,20 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
+      "description": "Workflows that timed out before completing execution.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -819,6 +544,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -856,7 +582,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 21
+        "y": 11
       },
       "id": 41,
       "options": {
@@ -877,11 +603,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -900,18 +627,20 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
+      "description": "Workflows that failed before completion.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -920,6 +649,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -957,7 +687,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 20
       },
       "id": 12,
       "options": {
@@ -978,11 +708,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
           "exemplar": false,
           "expr": "sum(rate(temporal_cloud_v0_workflow_failed_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
@@ -999,18 +730,20 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
+      "description": "Workflow Executions that were Continued-As-New from a past execution.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1019,6 +752,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1056,7 +790,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 20
       },
       "id": 13,
       "options": {
@@ -1077,11 +811,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
           "exemplar": false,
           "expr": "sum(rate(temporal_cloud_v0_workflow_continued_as_new_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
@@ -1094,34 +829,24 @@
       "type": "timeseries"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 39
-      },
-      "id": 40,
-      "panels": [],
-      "title": "Schedules",
-      "type": "row"
-    },
-    {
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
       },
+      "description": "Workflows terminated before completing execution.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1130,6 +855,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1167,7 +893,230 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 40
+        "y": 29
+      },
+      "id": 48,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(temporal_cloud_v0_workflow_terminate_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Workflow Terminations",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Workflows canceled before completing execution.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 29
+      },
+      "id": 49,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(temporal_cloud_v0_workflow_cancel_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Workflow Cancellations",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 38
+      },
+      "id": 40,
+      "panels": [],
+      "title": "Schedules",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Successful execution of a Scheduled Workflow.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 39
       },
       "id": 11,
       "options": {
@@ -1188,11 +1137,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1211,17 +1161,20 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
+      "description": "When average schedule run length is greater than average schedule interval while a buffer_all overlap policy is configured.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1230,6 +1183,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1267,7 +1221,7 @@
         "h": 9,
         "w": 4,
         "x": 12,
-        "y": 40
+        "y": 39
       },
       "id": 42,
       "options": {
@@ -1288,11 +1242,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1311,17 +1266,20 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
+      "description": "Skipped Scheduled executions when Workflows were delayed longer than the catchup window.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1330,6 +1288,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1367,7 +1326,7 @@
         "h": 9,
         "w": 4,
         "x": 16,
-        "y": 40
+        "y": 39
       },
       "id": 43,
       "options": {
@@ -1388,11 +1347,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1411,17 +1371,20 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
+      "description": "Workflows that were delayed due to exceeding a rate limit.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -1430,6 +1393,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1467,7 +1431,7 @@
         "h": 9,
         "w": 4,
         "x": 20,
-        "y": 40
+        "y": 39
       },
       "id": 44,
       "options": {
@@ -1488,11 +1452,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1508,591 +1473,14 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 49
-      },
-      "id": 19,
-      "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "refId": "A"
-        }
-      ],
-      "title": "Temporal Service Requests",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 50
-      },
-      "id": 6,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Max",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "sum(rate(temporal_cloud_v0_frontend_service_request_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace,operation)",
-          "interval": "",
-          "legendFormat": "{{temporal_namespace}} - {{operation}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Frontend Service Requests",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 50
-      },
-      "id": 8,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Max",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": true,
-          "expr": "sum(rate(temporal_cloud_v0_frontend_service_error_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace,operation)",
-          "interval": "",
-          "legendFormat": "{{temporal_namespace}} - {{operation}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Frontend Service Errors",
-      "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 59
-      },
-      "id": 36,
-      "panels": [],
-      "title": "Temporal Service Latency",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 8,
-        "x": 0,
-        "y": 60
-      },
-      "id": 30,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "mean",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"StartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
-          "legendFormat": "{{ temporal_namespace }}  - 50th Percentile",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"StartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
-          "hide": false,
-          "legendFormat": "{{ temporal_namespace }}  - 99th Percentile",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "StartWorkflowExecution Latency",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 8,
-        "x": 8,
-        "y": 60
-      },
-      "id": 1,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "mean",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
-          "legendFormat": "{{ temporal_namespace }}  - 50th Percentile",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
-          "hide": false,
-          "legendFormat": "{{ temporal_namespace }}  - 99th Percentile",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "SignalWorkflowExecution Latency",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 8,
-        "x": 16,
-        "y": 60
-      },
-      "id": 35,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "mean",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWithStartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
-          "legendFormat": "{{ temporal_namespace }}  - 50th Percentile",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWithStartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
-          "hide": false,
-          "legendFormat": "{{ temporal_namespace }}  - 99th Percentile",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "SignalWithStartWorkflowExecution Latency",
-      "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 70
+        "y": 48
       },
       "id": 23,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Workers and Tasks",
       "type": "row"
     },
@@ -2101,18 +1489,20 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
+      "description": "The Sync Match Rate measures the rate of Tasks that can be delivered to Workers without having to be persisted (Workers are up and available to pick them up) to the rate of all delivered Tasks. [more info](https://docs.temporal.io/production-deployment/cloud/worker-health#sync-match-rate)\n\nShould always be near 100%.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -2121,402 +1511,7 @@
               "tooltip": false,
               "viz": false
             },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 71
-      },
-      "id": 24,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Max",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": false,
-          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
-          "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Worker Poll Success",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 71
-      },
-      "id": 26,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Max",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": false,
-          "expr": "sum(rate(temporal_cloud_v0_poll_timeout_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
-          "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Worker Poll Timeout",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 80
-      },
-      "id": 25,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Max",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": true,
-          "expr": "sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
-          "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Worker Poll Success Sync",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 80
-      },
-      "id": 27,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Max",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": false,
-          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace) - sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
-          "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Worker Poll Success Async",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -2555,7 +1550,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 89
+        "y": 49
       },
       "id": 37,
       "options": {
@@ -2576,11 +1571,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2599,18 +1595,20 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
+      "description": "Tasks that are successfully matched to a poller.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -2619,6 +1617,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -2656,7 +1655,319 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 89
+        "y": 49
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "exemplar": false,
+          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Worker Poll Success",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Tasks that are successfully sync matched to a poller.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 58
+      },
+      "id": 25,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "exemplar": true,
+          "expr": "sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Worker Poll Success Sync",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Tasks that are successfully async matched to a poller.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 58
+      },
+      "id": 27,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace) - sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Worker Poll Success Async",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Successful task matching to poller\n/\nAll polling requests (including timeouts)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 67
       },
       "id": 38,
       "options": {
@@ -2677,11 +1988,12 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${DS_EXTERNAL_METRICS}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2694,41 +2006,1287 @@
       ],
       "title": "Poll Success Rate",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "When no tasks are available for a poller before timing out. If this is high, you may have too many pollers.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 67
+      },
+      "id": 26,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "exemplar": false,
+          "expr": "sum(rate(temporal_cloud_v0_poll_timeout_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Worker Poll Timeout",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 76
+      },
+      "id": 19,
+      "panels": [],
+      "title": "Temporal Cloud gRPC Requests",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "A count of gRPC requests received aggregated by operation.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 77
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(rate(temporal_cloud_v0_frontend_service_request_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace,operation)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}} - {{operation}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Frontend Service Requests",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Count of gRPC errors returned aggregated by operation, including resource exhausted errors.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 77
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(rate(temporal_cloud_v0_frontend_service_error_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace,operation)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}} - {{operation}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(temporal_cloud_v0_resource_exhausted_error_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace,operation,resource_exhausted_cause)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Rate Limited - {{ resource_exhausted_cause }} / {{temporal_namespace}}",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Frontend Service Errors",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 86
+      },
+      "id": 36,
+      "panels": [],
+      "title": "Temporal Service Latency",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_EXTERNAL_METRICS}"
+      },
+      "description": "Should generally be under 200ms",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 87
+      },
+      "id": 30,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"StartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "legendFormat": "{{ temporal_namespace }}  - 50th Percentile",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"StartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "hide": false,
+          "legendFormat": "{{ temporal_namespace }}  - 99th Percentile",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "StartWorkflowExecution Latency",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Should generally be under 200ms",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 87
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "legendFormat": "{{ temporal_namespace }}  - 50th Percentile",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "hide": false,
+          "legendFormat": "{{ temporal_namespace }}  - 99th Percentile",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "SignalWorkflowExecution Latency",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_EXTERNAL_METRICS}"
+      },
+      "description": "Should generally be under 200ms",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 87
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.5, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWithStartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "legendFormat": "{{ temporal_namespace }}  - 50th Percentile",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_service_latency_bucket{temporal_namespace=~\"$temporal_namespace\", operation=\"SignalWithStartWorkflowExecution\"}[$__rate_interval])) by (temporal_namespace, operation, le))",
+          "hide": false,
+          "legendFormat": "{{ temporal_namespace }}  - 99th Percentile",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "SignalWithStartWorkflowExecution Latency",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 97
+      },
+      "id": 45,
+      "panels": [],
+      "title": "Multi-region Namespaces",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "The transmission delay of Workflow updates and history events from the primary to the replica. [more info](https://docs.temporal.io/cloud/high-availability/monitor#metrics)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 98
+      },
+      "id": 47,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_EXTERNAL_METRICS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(temporal_cloud_v0_replication_lag_sum{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)\n/\nsum(rate(temporal_cloud_v0_replication_lag_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "legendFormat": "{{ temporal_namespace }} - p50",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.99, sum(rate(temporal_cloud_v0_replication_lag_bucket{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace, le))",
+          "hide": false,
+          "legendFormat": "{{ temporal_namespace }} - p99",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Replication Lag",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_EXTERNAL_METRICS}"
+      },
+      "description": "[Billable actions](https://docs.temporal.io/cloud/pricing#action) split across active/standby namespaces for multi region namespaces.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 98
+      },
+      "id": 46,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(rate(temporal_cloud_v0_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace, namespace_mode)",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}} - {{ namespace_mode }}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Actions",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 107
+      },
+      "id": 17,
+      "panels": [],
+      "title": "State Transitions",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_EXTERNAL_METRICS}"
+      },
+      "description": "Count of state transitions for each Namespace.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 108
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum(rate(temporal_cloud_v0_state_transition_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "refId": "A"
+        }
+      ],
+      "title": "State Transitions",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_EXTERNAL_METRICS}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 12,
+        "y": 108
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum(increase(temporal_cloud_v0_state_transition_count{temporal_namespace=~\"$temporal_namespace\"}[30d])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "refId": "A"
+        }
+      ],
+      "title": "30 Day State Transitions",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_EXTERNAL_METRICS}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 16,
+        "y": 108
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum(increase(temporal_cloud_v0_state_transition_count{temporal_namespace=~\"$temporal_namespace\"}[7d])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "refId": "A"
+        }
+      ],
+      "title": "7 Day State Transitions",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_EXTERNAL_METRICS}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 20,
+        "y": 108
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum(increase(temporal_cloud_v0_state_transition_count{temporal_namespace=~\"$temporal_namespace\"}[1d])) by (temporal_namespace)",
+          "interval": "",
+          "legendFormat": "{{temporal_namespace}}",
+          "refId": "A"
+        }
+      ],
+      "title": "1 Day State Transitions",
+      "type": "stat"
     }
   ],
   "refresh": false,
-  "schemaVersion": 37,
-  "style": "dark",
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": true,
-          "text": "default",
-          "value": "default"
-        },
-        "hide": 0,
+        "current": {},
         "includeAll": false,
         "label": "datasource",
-        "multi": false,
         "name": "datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       },
       {
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${datasource}"
+          "uid": "${DS_EXTERNAL_METRICS}"
         },
         "definition": "label_values(temporal_namespace)",
-        "hide": 0,
         "includeAll": false,
         "multi": true,
         "name": "temporal_namespace",
@@ -2739,8 +3297,6 @@
         },
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
@@ -2752,6 +3308,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Temporal Cloud External Metrics",
+  "uid": "fem3anbu421hcc",
   "version": 1,
   "weekStart": ""
 }
