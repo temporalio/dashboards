@@ -507,10 +507,12 @@
             "type": "prometheus",
             "uid": "${DS_EXTERNAL_METRICS}"
           },
+          "editorMode": "code",
           "exemplar": true,
           "expr": "sum(rate(temporal_cloud_v0_workflow_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
           "interval": "",
           "legendFormat": "{{temporal_namespace}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -818,10 +820,12 @@
             "type": "prometheus",
             "uid": "${DS_EXTERNAL_METRICS}"
           },
+          "editorMode": "code",
           "exemplar": false,
           "expr": "sum(rate(temporal_cloud_v0_workflow_continued_as_new_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
           "interval": "",
           "legendFormat": "{{temporal_namespace}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1580,9 +1584,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by(temporal_namespace) (\n   rate(\n     temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n   )\n  )\n/\nsum by(temporal_namespace) (\n   rate(\n     temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n    )\n  )",
+          "expr": "sum by(temporal_namespace,task_type) (\n   rate(\n     temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n   )\n  )\n/\nsum by(temporal_namespace,task_type) (\n   rate(\n     temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n    )\n  )",
           "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
+          "legendFormat": "{{temporal_namespace}} - {{task_type}}",
           "range": true,
           "refId": "A"
         }
@@ -1683,10 +1687,12 @@
             "type": "prometheus",
             "uid": "${DS_EXTERNAL_METRICS}"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace, task_type)",
           "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
+          "legendFormat": "{{temporal_namespace}} - {{task_type}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1786,10 +1792,12 @@
             "type": "prometheus",
             "uid": "${DS_EXTERNAL_METRICS}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "expr": "sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace,task_type)",
           "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
+          "legendFormat": "{{temporal_namespace}} - {{task_type}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1891,9 +1899,9 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace) - sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "expr": "sum(rate(temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace, task_type) - sum(rate(temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace, task_type)",
           "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
+          "legendFormat": "{{temporal_namespace}} - {{task_type}}",
           "range": true,
           "refId": "A"
         }
@@ -1997,9 +2005,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "(\n    (\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n      +\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n    )\n  /\n    (\n        (\n            sum by(temporal_namespace) (\n              rate(\n                temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n              )\n            )\n          +\n            sum by(temporal_namespace) (\n              rate(\n                temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n              )\n            )\n        )\n      +\n        sum by(temporal_namespace) (\n          rate(\n            temporal_cloud_v0_poll_timeout_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n    )\n)",
+          "expr": "(\n    (\n        sum by(temporal_namespace, task_type) (\n          rate(\n            temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n      +\n        sum by(temporal_namespace, task_type) (\n          rate(\n            temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n    )\n  /\n    (\n        (\n            sum by(temporal_namespace, task_type) (\n              rate(\n                temporal_cloud_v0_poll_success_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n              )\n            )\n          +\n            sum by(temporal_namespace, task_type) (\n              rate(\n                temporal_cloud_v0_poll_success_sync_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n              )\n            )\n        )\n      +\n        sum by(temporal_namespace, task_type) (\n          rate(\n            temporal_cloud_v0_poll_timeout_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval]\n          )\n        )\n    )\n)",
           "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
+          "legendFormat": "{{temporal_namespace}} - {{task_type}}",
           "range": true,
           "refId": "A"
         }
@@ -2100,10 +2108,12 @@
             "type": "prometheus",
             "uid": "${DS_EXTERNAL_METRICS}"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(temporal_cloud_v0_poll_timeout_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace)",
+          "expr": "sum(rate(temporal_cloud_v0_poll_timeout_count{temporal_namespace=~\"$temporal_namespace\"}[$__rate_interval])) by (temporal_namespace, task_type)",
           "interval": "",
-          "legendFormat": "{{temporal_namespace}}",
+          "legendFormat": "{{temporal_namespace}} - {{task_type}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -3264,6 +3274,7 @@
       "type": "stat"
     }
   ],
+  "preload": false,
   "refresh": false,
   "schemaVersion": 40,
   "tags": [],
