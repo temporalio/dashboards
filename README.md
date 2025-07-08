@@ -1,7 +1,8 @@
 # Temporal Dashboards
 
 This repository contains community-driven [Grafana](https://grafana.com/docs/grafana/latest/dashboards/) and [DataDog](https://docs.datadoghq.com/dashboards/) dashboards that can be used for monitoring 
-Temporal Server and SDK metrics. 
+[Temporal Cloud](https://temporal.io/cloud), [Temporal Server](https://github.com/temporalio/temporal), and [Temporal SDK](https://docs.temporal.io/develop) metrics. 
+
 
 We welcome contributions to existing as well as new dashboards that can help the community.
 
@@ -10,9 +11,26 @@ We welcome contributions to existing as well as new dashboards that can help the
 
 ## Directory structure
 
-* [`server/`](server): Dashboards for Temporal Server metrics
+* [`cloud/`](cloud): Dashboards for Temporal Cloud metrics.
+* [`server/`](server): Dashboards for Temporal Server metrics.
 * [`sdk/`](sdk): Dashboards for Temporal SDK metrics.
 * [`misc/`](misc): Server metrics dashboards that have not been fully tested yet or need improvements
+
+## Setup
+* [Temporal Cloud](https://docs.temporal.io/cloud/metrics/)
+* [Temporal Server](https://docs.temporal.io/self-hosted-guide/monitoring)
+* _Temporal SDK_
+    * [Golang](https://docs.temporal.io/develop/go/observability)
+    * [Java](https://docs.temporal.io/develop/java/observability)
+    * [Python](https://docs.temporal.io/develop/python/observability)
+    * [TypeScript](https://docs.temporal.io/develop/typescript/observability)
+    * [.NET](https://docs.temporal.io/develop/dotnet/observability)
+    * [PHP](https://docs.temporal.io/develop/php/observability)
+
+## Available metrics:
+* [Temporal Cloud metrics](https://docs.temporal.io/production-deployment/cloud/metrics/reference)
+* [Temporal Server metrics](https://docs.temporal.io/references/cluster-metrics)
+* [Temporal SDK metrics](https://docs.temporal.io/references/sdk-metrics)
 
 ## Usage
 
