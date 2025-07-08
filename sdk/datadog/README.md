@@ -17,3 +17,5 @@ The [Dashboard](temporal_sdk_dashboard.json) here works with [this openmetrics c
 > **Example for configuring `temporal_request_latency`**:
 > * Visit https://app.datadoghq.com/metric/summary?metric=temporal_request_latency
 > * Set `Advanced > Percentiles > Configure > ON`
+
+

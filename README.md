@@ -27,7 +27,7 @@ We welcome contributions to existing as well as new dashboards that can help the
     * [.NET](https://docs.temporal.io/develop/dotnet/observability)
     * [PHP](https://docs.temporal.io/develop/php/observability)
 
-## Available metrics:
+## Available metrics
 * [Temporal Cloud metrics](https://docs.temporal.io/production-deployment/cloud/metrics/reference)
 * [Temporal Server metrics](https://docs.temporal.io/references/cluster-metrics)
 * [Temporal SDK metrics](https://docs.temporal.io/references/sdk-metrics)
