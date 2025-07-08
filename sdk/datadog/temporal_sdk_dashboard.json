@@ -1,0 +1,1949 @@
+{
+  "title": "Temporal SDK Metrics 🎉",
+  "description": "Dashboard using distribution metrics with enabled percentiles",
+  "widgets": [
+    {
+      "id": 1,
+      "definition": {
+        "type": "note",
+        "content": "**Note:** You must enable percentiles (p95, p99) for distribution metrics in Datadog Metrics Summary page first.",
+        "background_color": "vivid_yellow",
+        "font_size": "12",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": true,
+        "tick_pos": "75%",
+        "tick_edge": "bottom",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 1
+      }
+    },
+    {
+      "id": 1443440509451425,
+      "definition": {
+        "title": "Compute",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6912933675528841,
+            "definition": {
+              "title": "CPU Usage %",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.cpu.user{$host}",
+                      "aggregator": "avg"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:system.cpu.system{$host}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1 + query2"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 1
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1762990522750473,
+            "definition": {
+              "title": "Memory Usage %",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.mem.pct_usable{$host}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 1
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7395104907317546,
+            "definition": {
+              "title": "Load Average (1m)",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.load.1{$host}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 6857600481409383,
+            "definition": {
+              "title": "CPU Usage Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.cpu.user{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.cpu.system{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.cpu.iowait{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2714990955524408,
+            "definition": {
+              "title": "Memory Usage Over Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.mem.used{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.mem.free{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 2393682765506983,
+            "definition": {
+              "title": "Load Average",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.load.1{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.load.5{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.load.15{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1947197773803764,
+            "definition": {
+              "title": "Disk I/O Operations",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.io.r_s{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.io.w_s{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 4419979897212949,
+            "definition": {
+              "title": "Network Traffic",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.net.bytes_rcvd{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:system.net.bytes_sent{$host}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 1,
+        "width": 12,
+        "height": 1
+      }
+    },
+    {
+      "id": 8597427824673889,
+      "definition": {
+        "title": "Network",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4807520225196443,
+            "definition": {
+              "title": "Request Success Rate",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_request.count{namespace:$namespace}.as_rate()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "sum:temporal_request_failure{namespace:$namespace}.as_rate()"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "sum:temporal_request.count{namespace:$namespace}.as_rate()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "((query1 - query2) / query3) * 100",
+                      "alias": "Success Rate (%)"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "min": "0",
+                "max": "100"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4765020064671431,
+            "definition": {
+              "title": "RPC Long-Poll Latency (p95 & p99) - Distribution",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "p95:temporal_long_request_latency{namespace:$namespace,service_name:$service_name} by {namespace,operation}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "p99:temporal_long_request_latency{namespace:$namespace,service_name:$service_name} by {namespace,operation}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "red"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "label": "milliseconds"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3,
+            "definition": {
+              "title": "RPC Latency (p95 & p99) - Distribution",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "p95:temporal_request_latency{namespace:$namespace,service_name:$service_name} by {namespace,operation}"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "p99:temporal_request_latency{namespace:$namespace,service_name:$service_name} by {namespace,operation}"
+                    }
+                  ],
+                  "style": {
+                    "palette": "red"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "label": "milliseconds"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 12,
+        "height": 1
+      }
+    },
+    {
+      "id": 3583867315774251,
+      "definition": {
+        "title": "Workflows",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7,
+            "definition": {
+              "title": "Workflow Task Schedule-to-Start Latency (p95) - Distribution",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "p95:temporal_workflow_task_schedule_to_start_latency{namespace:$namespace,service_name:$service_name} by {namespace,task_queue}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "label": "milliseconds"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6,
+            "definition": {
+              "title": "Workflow Task Throughput",
+              "show_legend": true,
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_workflow_task_queue_poll_succeed.count{namespace:$namespace,service_name:$service_name} by {namespace,task_queue}.as_rate()"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5,
+            "definition": {
+              "title": "Workflow End-to-End Latency (p95) - Distribution",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "p95:temporal_workflow_endtoend_latency{namespace:$namespace,service_name:$service_name} by {namespace,workflow_type}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "second"
+                        }
+                      }
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "label": "milliseconds"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 7348670239811961,
+            "definition": {
+              "title": "Workflow Task Failed",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_workflow_task_execution_failed.count{namespace:$namespace,service_name:$service_name,failure_reason:workflowerror} by {namespace,workflow_type}.as_rate()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "green"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 5799738924949078,
+            "definition": {
+              "title": "Workflow Task Replay Latency",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:temporal_workflow_task_replay_latency{namespace:$namespace,service_name:$service_name} by {namespace,task_queue}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "label": "milliseconds"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 721448255054598,
+            "definition": {
+              "title": "Workflow Failures",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_workflow_failed.count{namespace:$namespace,service_name:$service_name} by {namespace,workflow_type}.as_rate()"
+                    }
+                  ],
+                  "style": {
+                    "palette": "green"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4,
+            "definition": {
+              "title": "Workflow Completions",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_workflow_completed.count{namespace:$namespace,service_name:$service_name} by {namespace,workflow_type}.as_rate()"
+                    }
+                  ],
+                  "style": {
+                    "palette": "green"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 12,
+        "height": 13
+      }
+    },
+    {
+      "id": 4824282029865285,
+      "definition": {
+        "title": "Activities",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8416682883665696,
+            "definition": {
+              "title": "Activity Task Schedule-to-Start Latency (p95) - Distribution",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "p95:temporal_activity_schedule_to_start_latency{namespace:$namespace,service_name:$service_name} by {namespace,task_queue}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "label": "milliseconds"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6638251645640149,
+            "definition": {
+              "title": "Activity Success End-to-End Latency (p95) - Distribution",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:temporal_activity_succeed_endtoend_latency{namespace:$namespace,service_name:$service_name} by {namespace,task_queue}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "label": "milliseconds"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 9,
+            "definition": {
+              "title": "Activity Execution Latency (p95) - Distribution",
+              "show_legend": true,
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "p95:temporal_activity_execution_latency{namespace:$namespace,service_name:$service_name} by {namespace,activity_type}"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "label": "milliseconds"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 8,
+            "definition": {
+              "title": "Activity Execution Failures",
+              "show_legend": true,
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_activity_execution_failed.count{namespace:$namespace,service_name:$service_name} by {namespace,activity_type}.as_rate()"
+                    }
+                  ],
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 16,
+        "width": 12,
+        "height": 7,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 5568899104334129,
+      "definition": {
+        "title": "Local Activities",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 539489417759370,
+            "definition": {
+              "title": "Local Activity Execution Latency (p95) - Distribution",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "p95:temporal_local_activity_execution_latency{namespace:$namespace,service_name:$service_name} by {namespace, activity_type}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "label": "milliseconds"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 118517933928889,
+            "definition": {
+              "title": "Local Activity Success End-to-End Latency (p95) - Distribution",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:temporal_local_activity_succeeded_endtoend_latency{namespace:$namespace,service_name:$service_name} by {namespace,task_queue,activity_type}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "label": "milliseconds"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4458058935779362,
+            "definition": {
+              "title": "Local Activity Total",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_local_activity_total{namespace:$namespace,service_name:$service_name} by {namespace,task_queue,activity_type}.as_rate()"
+                    }
+                  ],
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6837569975744609,
+            "definition": {
+              "title": "Local Activity Execution Failures",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_local_activity_execution_failed.count{namespace:$namespace,service_name:$service_name} by {namespace,activity_type}.as_rate()"
+                    }
+                  ],
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 23,
+        "width": 12,
+        "height": 1
+      }
+    },
+    {
+      "id": 7544979003156379,
+      "definition": {
+        "title": "Worker Capacity",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 10,
+            "definition": {
+              "title": "Worker Task Slots Available - Current",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "temporal_worker_task_slots_available{namespace:$namespace,service_name:$service_name, worker_type:workflowworker} by {namespace,worker_type}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "avg:temporal_worker_task_slots_available{namespace:$namespace,service_name:$service_name,worker_type:activityworker} by {namespace,worker_type}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query0"
+                    }
+                  ],
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 11,
+            "definition": {
+              "title": "Worker Task Slots Used",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "temporal_worker_task_slots_used{namespace:$namespace,service_name:$service_name, worker_type:workflowworker} by {namespace,worker_type}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "temporal_worker_task_slots_used{namespace:$namespace,service_name:$service_name, worker_type:activityworker} by {namespace,worker_type}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "orange"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4787740781475934,
+            "definition": {
+              "title": "Average Worker Task Slots Available (10m)",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:temporal_worker_task_slots_available{namespace:$namespace,worker_type:workflowworker}.rollup(avg, 600)"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:temporal_worker_task_slots_available{namespace:$namespace,worker_type:activityworker}.rollup(avg, 600)"
+                    }
+                  ],
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "include_zero": true,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 402798388361549,
+            "definition": {
+              "title": "Poller Count",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_num_pollers{namespace:$namespace} by {namespace}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 24,
+        "width": 12,
+        "height": 1
+      }
+    },
+    {
+      "id": 260049159538739,
+      "definition": {
+        "title": "Sticky Cache",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3742246126534320,
+            "definition": {
+              "title": "Sticky Cache Size",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_sticky_cache_size{namespace:$namespace,service_name:$service_name} by {namespace}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 299370783628567,
+            "definition": {
+              "title": "Sticky Cache Forced Eviction",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_sticky_cache_total_forced_eviction.count{namespace:$namespace,service_name:$service_name} by {namespace,service_name}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "warm"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 12,
+            "definition": {
+              "title": "Sticky Cache Hits vs Misses",
+              "show_legend": true,
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_sticky_cache_hit.count{namespace:$namespace,service_name:$service_name} by {namespace}.as_rate()"
+                    }
+                  ],
+                  "style": {
+                    "palette": "green"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_sticky_cache_miss.count{namespace:$namespace,service_name:$service_name} by {namespace}.as_rate()"
+                    }
+                  ],
+                  "style": {
+                    "palette": "orange"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 25,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 2847786625838236,
+      "definition": {
+        "title": "Deployment",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1999300951699894,
+            "definition": {
+              "title": "NonDeterminism Errors Count",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_workflow_task_execution_failed.count{namespace:$namespace,failure_reason:nondeterminismerror} by {namespace,workflow_type,failure_reason}.as_count()"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "red",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3720169879467709,
+            "definition": {
+              "title": "Unregistered Activity Invocations (Non-Core SDKs)",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:temporal_unregistered_activity_invocation.count{namespace:$namespace,service_name:$service_name} by {namespace, task_queue}"
+                    }
+                  ],
+                  "style": {
+                    "palette": "purple",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "scale": "linear",
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 32,
+        "width": 12,
+        "height": 1
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "namespace",
+      "prefix": "namespace",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "service_name",
+      "prefix": "service_name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "host",
+      "prefix": "host",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

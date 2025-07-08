@@ -1,6 +1,6 @@
-# Temporal Grafana Dashboards
+# Temporal Dashboards
 
-This repository contains community-driven Grafana [dashboards](https://grafana.com/docs/grafana/latest/dashboards/) that can be used for monitoring 
+This repository contains community-driven [Grafana](https://grafana.com/docs/grafana/latest/dashboards/) and [DataDog](https://docs.datadoghq.com/dashboards/) dashboards that can be used for monitoring 
 Temporal Server and SDK metrics. 
 
 We welcome contributions to existing as well as new dashboards that can help the community.
