@@ -2,45 +2,45 @@
 
 init_config:
 
-  instances:
-    - openmetrics_endpoint: "http://localhost:9464/metrics"
-      tags:
-        - "service:temporal-worker"
-        - "env:production"
-      
-      metrics:
-        - "temporal_*"
-      
-      # KEY: Convert histogram buckets to distributions
-      histogram_buckets_as_distributions: true    # Convert to distributions
-      collect_histogram_buckets: true
-      
-      # Send buckets as distributions instead of individual metrics  
-      send_distribution_buckets: true             # Send as distributions
-      send_distribution_counts_as_monotonic: true # For proper count handling
-      send_histograms_buckets: false
-      
-      # Include all labels including "le" for bucket conversion
-      include_labels:
-        - "le"              # NEEDED for bucket conversion
-        - "namespace"
-        - "operation"
-        - "workflow_type"
-        - "activity_type"
-        - "task_queue"
-        - "worker_type"
-        - "service_name"
-        - "error_type"
-        - "poller_type"
-        - "failure_reason"
-      
-      exclude_labels:
-        - "job"
-        - "instance"
-        - "__name__"
-      
-      timeout: 30
-      min_collection_interval: 15
+instances:
+  - openmetrics_endpoint: "http://localhost:9464/metrics"
+    tags:
+      - "service:temporal-worker"
+      - "env:production"
+    
+    metrics:
+      - "temporal_*"
+    
+    # KEY: Convert histogram buckets to distributions
+    histogram_buckets_as_distributions: true    # Convert to distributions
+    collect_histogram_buckets: true
+    
+    # Send buckets as distributions instead of individual metrics  
+    send_distribution_buckets: true             # Send as distributions
+    send_distribution_counts_as_monotonic: true # For proper count handling
+    send_histograms_buckets: false
+    
+    # Include all labels including "le" for bucket conversion
+    include_labels:
+      - "le"              # NEEDED for bucket conversion
+      - "namespace"
+      - "operation"
+      - "workflow_type"
+      - "activity_type"
+      - "task_queue"
+      - "worker_type"
+      - "service_name"
+      - "error_type"
+      - "poller_type"
+      - "failure_reason"
+    
+    exclude_labels:
+      - "job"
+      - "instance"
+      - "__name__"
+    
+    timeout: 30
+    min_collection_interval: 15
   
   # This will create distribution metrics that you can then enable percentiles for
   # in the Datadog Metrics Summary page:
