@@ -1464,7 +1464,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(rate(state_transition_count_count[1m]))",
+          "expr": "sum(rate(state_transition_count_sum[1m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "state transition",
