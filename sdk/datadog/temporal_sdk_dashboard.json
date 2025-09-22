@@ -1475,6 +1475,27 @@
                     "line_width": "normal"
                   },
                   "display_type": "line"
+                },
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "avg:temporal_worker_task_slots_available{namespace:$namespace,service_name:$service_name,worker_type:localactivityworker} by {namespace,worker_type}"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query0"
+                    }
+                  ],
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
                 }
               ]
             },
