@@ -2730,7 +2730,7 @@
                 "type": "prometheus"
               },
               "editorMode": "code",
-              "expr": "temporal_cloud_v1_action_limit{temporal_namespace=~\"$temporal_namespace\"} or vector(400)",
+              "expr": "temporal_cloud_v1_action_limit{temporal_namespace=~\"$temporal_namespace\"}",
               "hide": false,
               "instant": false,
               "legendFormat": "limit",
@@ -3085,7 +3085,7 @@
                 "type": "prometheus"
               },
               "editorMode": "code",
-              "expr": "temporal_cloud_v1_service_request_limit{temporal_namespace=~\"$temporal_namespace\"} or vector(1600)",
+              "expr": "temporal_cloud_v1_service_request_limit{temporal_namespace=~\"$temporal_namespace\"}",
               "hide": false,
               "instant": false,
               "legendFormat": "limit",
@@ -3227,7 +3227,7 @@
                 "type": "prometheus"
               },
               "editorMode": "code",
-              "expr": "vector(3200)",
+              "expr": "temporal_cloud_v1_operations_limit{temporal_namespace=~\"$temporal_namespace\"}",
               "hide": false,
               "instant": false,
               "legendFormat": "limit",
