@@ -7,7 +7,7 @@
 * [Temporal Cloud metrics](https://docs.temporal.io/production-deployment/cloud/metrics/reference)
 
 ## Dashboards
-* **Grafana** [here](temporal_cloud.json)
+* **Grafana** [here](temporal_cloud_openmetrics.json)
 * **DataDog** integration details and Dashboard access are found [here](https://docs.datadoghq.com/integrations/temporal-cloud/).
   * Related [Blog post](https://temporal.io/blog/temporal-cloud-metrics-in-datadog).
 
