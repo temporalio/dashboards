@@ -477,7 +477,7 @@
         "uid": "${datasource}",
         "type": "prometheus"
       },
-      "description": "Percent change in current action rate vs the same time yesterday. Large positive swings flag an unannounced usage spike. Paired with an alert rule of the same name in temporal_cloud_alert_rules.yaml.",
+      "description": "Percent change in current action rate vs the same time yesterday. Large positive swings flag an unannounced usage spike. Paired with an alert rule of the same name in temporal_cloud_action_costs_alerts.yaml.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -551,7 +551,7 @@
         "uid": "${datasource}",
         "type": "prometheus"
       },
-      "description": "Percent change in current action rate vs the same time last week. Paired with an alert rule of the same name in temporal_cloud_alert_rules.yaml.",
+      "description": "Percent change in current action rate vs the same time last week. Paired with an alert rule of the same name in temporal_cloud_action_costs_alerts.yaml.",
       "fieldConfig": {
         "defaults": {
           "color": {
