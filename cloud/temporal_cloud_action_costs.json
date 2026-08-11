@@ -936,7 +936,7 @@
         "footer": {
           "countRows": false,
           "fields": [
-            "Value"
+            "Estimated Actions"
           ],
           "reducer": [
             "sum"
