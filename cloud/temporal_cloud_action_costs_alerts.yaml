@@ -11,7 +11,7 @@
 # temporal-cost to it. The rules intentionally don't hardcode a contact point, since that's specific to your team.
 # 
 # Rules included
-# Action rate spike vs 24h ago: Fires when current action rate is >50% above the same time yesterday, sustained for	10 min
+# Action rate spike vs 24h ago: Fires when current action rate is >50% above the same time yesterday, sustained for 10 min
 # Action rate spike vs 7d ago: Fires when current action rate is >75% above the same time last week, sustained for 10 min
 #
 # Before use, replace every occurrence of PROM_DS_UID below with the UID of your
