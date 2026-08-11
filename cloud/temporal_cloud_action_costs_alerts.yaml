@@ -61,7 +61,7 @@ groups:
               expr: >-
                 (sum(temporal_cloud_v1_total_action_count{temporal_namespace=~".*"})
                 - sum(temporal_cloud_v1_total_action_count{temporal_namespace=~".*"} offset 1d))
-                / sum(temporal_cloud_v1_total_action_count{temporal_namespace=~".*"} offset 1d) * 100
+                / clamp_min(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~".*"} offset 1d), 1e-9) * 100
               instant: true
               range: false
               refId: A
