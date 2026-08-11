@@ -947,7 +947,7 @@
         "sortBy": [
           {
             "desc": true,
-            "displayName": "Estimated Actions/sec"
+            "displayName": "Estimated Actions"
           }
         ]
       },
