@@ -1,14 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
   "__elements": {},
   "__requires": [
     {
@@ -109,7 +99,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "# Temporal Cloud \u2014 Actions Spent (MTD) & Spike Detection\n\nScope, on purpose: this dashboard answers two questions from OpenMetrics alone \u2014 **\"how many Actions have we used this month?\"** and **\"did something just start using way more Actions than usual?\"** It does not attempt to track spend against a commit or credit balance \u2014 Temporal Cloud doesn't expose price or credit-ledger balance via metrics, only Action volume (`temporal_cloud_v1_total_action_count`, `temporal_cloud_v1_billable_action_count`).\n\nSet the dashboard time range to **This month** for the MTD panels to read correctly.\n\n**Alerting**: the delta panels below (Action Rate \u0394 vs 24h/7d Ago) are paired with Grafana alert rules \u2014 see the companion `temporal_cloud_action_costs_alerts.yaml` \u2014 so a spike notifies your team instead of only being visible to whoever happens to be looking at the dashboard.\n\n\n**Only seeing a few namespaces in the dropdown?** That's expected, not a bug. OpenMetrics uses sparse reporting - a namespace only appears in a given scrape if it generated at least one billable Action in that window. Idle/unused namespaces simply won't show up here, no matter how wide you set the time range, until they have real traffic.\n",
+        "content": "# Temporal Cloud \u2014 Actions Spent (MTD) & Spike Detection\n\nScope, on purpose: this dashboard answers two questions from OpenMetrics alone \u2014 **\"how many Actions have we used this month?\"** and **\"did something just start using way more Actions than usual?\"** It does not attempt to track spend against a commit or credit balance \u2014 Temporal Cloud doesn't expose price or credit-ledger balance via metrics, only Action volume (`temporal_cloud_v1_total_action_count`, `temporal_cloud_v1_billable_action_count`).\n\nThe dashboard defaults to **month-to-date** (start of month through now). If you change the time picker, avoid Grafana's built-in \"This month\" quick-pick \u2014 it rounds the end of the range up to the last day of the month rather than stopping at now, so the label will visually claim more days than have actually happened (the totals themselves are still accurate either way, since only real data gets summed - but the labeled range would be misleading). Use a custom range with \"to: now\" instead.\n\n**Alerting**: the delta panels below (Action Rate \u0394 vs 24h/7d Ago) are paired with Grafana alert rules \u2014 see the companion `temporal_cloud_action_costs_alerts.yaml` \u2014 so a spike notifies your team instead of only being visible to whoever happens to be looking at the dashboard. **Scope note:** the alert rules evaluate per-namespace (so a spike in a small namespace isn't masked by a much larger, steady one), but the two \u0394 stat panels on this dashboard are still account-wide aggregates. If you get paged for a specific namespace, filter the `Namespace` variable above to that namespace before checking these panels \u2014 looking at them with \"All\" selected can understate or hide the very spike that paged you.\n\n\n**Only seeing a few namespaces in the dropdown?** That's expected, not a bug. OpenMetrics uses sparse reporting - a namespace only appears in a given scrape if it generated at least one billable Action in that window. Idle/unused namespaces simply won't show up here, no matter how wide you set the time range, until they have real traffic.\n",
         "mode": "markdown"
       },
       "pluginVersion": "12.0.0",
@@ -189,7 +179,7 @@
             "type": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(avg_over_time(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[1d]) * 86400)",
+          "expr": "sum(sum_over_time(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[1d:1m])) * 60",
           "legendFormat": "Actions",
           "range": true,
           "refId": "A"
@@ -258,7 +248,7 @@
             "type": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(avg_over_time(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[7d]) * 604800)",
+          "expr": "sum(sum_over_time(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[7d:1m])) * 60",
           "legendFormat": "Actions",
           "range": true,
           "refId": "A"
@@ -272,7 +262,7 @@
         "uid": "${datasource}",
         "type": "prometheus"
       },
-      "description": "Total estimated actions in the selected time range. Set the dashboard time range to 'This month' for an accurate month-to-date figure.",
+      "description": "Total estimated actions in the selected time range. Defaults to month-to-date (now/M to now). If you customize the time range, avoid Grafana's built-in 'This month' quick-pick - it rounds the end of the range up to month-end rather than stopping at now, so the displayed range would visually claim days that haven't happened yet, even though the total itself stays accurate.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -328,7 +318,7 @@
             "type": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(avg_over_time(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[$__range]) * $__range_s)",
+          "expr": "sum(sum_over_time(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[$__range:1m])) * 60",
           "legendFormat": "Actions",
           "range": true,
           "refId": "A"
@@ -477,7 +467,7 @@
         "uid": "${datasource}",
         "type": "prometheus"
       },
-      "description": "Percent change in current action rate vs the same time yesterday. Large positive swings flag an unannounced usage spike. Paired with an alert rule of the same name in temporal_cloud_action_costs_alerts.yaml.",
+      "description": "Percent change in current action rate vs the same time yesterday. Large positive swings flag an unannounced usage spike. Paired with the matching per-namespace alert rule in temporal_cloud_action_costs_alerts.yaml (this panel itself is account-wide, not per-namespace - see note below).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -537,7 +527,7 @@
             "type": "prometheus"
           },
           "editorMode": "code",
-          "expr": "(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}) - sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 1d)) / clamp_min(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 1d), 1e-9) * 100",
+          "expr": "(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}) - (sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 1d) or vector(0))) / clamp_min(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 1d) or vector(0), 1) * 100",
           "legendFormat": "% change",
           "range": true,
           "refId": "A"
@@ -551,7 +541,7 @@
         "uid": "${datasource}",
         "type": "prometheus"
       },
-      "description": "Percent change in current action rate vs the same time last week. Paired with an alert rule of the same name in temporal_cloud_action_costs_alerts.yaml.",
+      "description": "Percent change in current action rate vs the same time last week. Paired with the matching per-namespace alert rule in temporal_cloud_action_costs_alerts.yaml (this panel itself is account-wide, not per-namespace - see note below).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -611,7 +601,7 @@
             "type": "prometheus"
           },
           "editorMode": "code",
-          "expr": "(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}) - sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 7d)) / sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 7d) * 100",
+          "expr": "(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}) - (sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 7d) or vector(0))) / clamp_min(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 7d) or vector(0), 1) * 100",
           "legendFormat": "% change",
           "range": true,
           "refId": "A"
@@ -780,8 +770,8 @@
             "type": "prometheus"
           },
           "editorMode": "code",
-          "expr": "topk(8, sum by (temporal_workflow_type) (temporal_cloud_v1_billable_action_count{temporal_namespace=~\"$temporal_namespace\"}))",
-          "legendFormat": "{{temporal_workflow_type}}",
+          "expr": "sum by (temporal_workflow_type, temporal_namespace) (temporal_cloud_v1_billable_action_count{temporal_namespace=~\"$temporal_namespace\"})\nand\ntopk(8, sum by (temporal_workflow_type, temporal_namespace) (\n  sum_over_time(temporal_cloud_v1_billable_action_count{temporal_namespace=~\"$temporal_namespace\"}[$__range:1m] @ end())\n))",
+          "legendFormat": "{{temporal_workflow_type}} ({{temporal_namespace}})",
           "range": true,
           "refId": "A"
         }
@@ -894,7 +884,7 @@
         "uid": "${datasource}",
         "type": "prometheus"
       },
-      "description": "Ranked table of Workflow Types by estimated billable actions over the selected time range. Sort or widen the time range to spot which workflow type is the biggest driver of usage.",
+      "description": "Ranked table of the top 20 Workflow Types by estimated billable actions over the selected time range. Sort or widen the time range to spot which workflow type is the biggest driver of usage. Note: the footer total reflects only these top 20 rows, not the full account \u2014 if you have more than 20 distinct Workflow Types, this will undercount the true account-wide total.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -959,7 +949,7 @@
             "type": "prometheus"
           },
           "editorMode": "code",
-          "expr": "topk(20, sum by (temporal_workflow_type, temporal_namespace) (avg_over_time(temporal_cloud_v1_billable_action_count{temporal_namespace=~\"$temporal_namespace\"}[$__range]) * $__range_s))",
+          "expr": "topk(20, sum by (temporal_workflow_type, temporal_namespace) (\n  sum_over_time(temporal_cloud_v1_billable_action_count{temporal_namespace=~\"$temporal_namespace\"}[$__range:1m])\n) * 60)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -968,7 +958,7 @@
           "refId": "A"
         }
       ],
-      "title": "Top Workflow Types \u2014 Actions in Selected Range",
+      "title": "Top 20 Workflow Types \u2014 Actions in Selected Range",
       "transformations": [
         {
           "id": "organize",
@@ -1044,13 +1034,13 @@
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now/M",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Temporal Cloud - Actions MTD & Spike Detection",
-  "uid": null,
+  "uid": "temporal-cloud-action-costs",
   "version": 1,
   "weekStart": ""
 }
