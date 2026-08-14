@@ -1,12 +1,12 @@
 # Temporal Cloud action-spike alert rules for Grafana (unified alerting).
 #
 # This is a provisioning file, not a dashboard - it is imported separately from
-# temporal_cloud_actions_mtd.json. See the README in this folder for setup steps.
+# temporal_cloud_action_costs.json. See the README in this folder for setup steps.
 #
 # Before use, replace every occurrence of PROM_DS_UID below with the UID of your
 # own Prometheus data source (Connections > Data sources > your source > Settings).
 #
-# These rules link back to specific panels on temporal_cloud_actions_mtd.json via
+# These rules link back to specific panels on temporal_cloud_action_costs.json via
 # __dashboardUid__/__panelId__ annotations, so a firing alert can jump straight to
 # the relevant chart. This only works because that dashboard's uid is pinned to
 # "temporal-cloud-action-costs" - if you rename or re-key the dashboard's uid on
