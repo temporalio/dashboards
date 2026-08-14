@@ -1,21 +1,16 @@
 # Temporal Cloud action-spike alert rules for Grafana (unified alerting).
 #
 # This is a provisioning file, not a dashboard - it is imported separately from
-# temporal_cloud_action_costs.json. 
-#
-# Instructions:
-# 1. Replace every PROM_DS_UID placeholder with your own Prometheus data source's UID (find it under Connections -> Data sources -> [your source] -> Settings - it's in the page URL 
-# and in the data source's JSON model).
-# 2. Load the file into Grafana. 
-# 3. Create a contact point (Slack webhook, email, PagerDuty, etc.) in Alerting -> Contact points, and a notification policy that routes alerts labeled category: 
-# temporal-cost to it. The rules intentionally don't hardcode a contact point, since that's specific to your team.
-# 
-# Rules included
-# Action rate spike vs 24h ago: Fires when current action rate is >50% above the same time yesterday, sustained for 10 min
-# Action rate spike vs 7d ago: Fires when current action rate is >75% above the same time last week, sustained for 10 min
+# temporal_cloud_actions_mtd.json. See the README in this folder for setup steps.
 #
 # Before use, replace every occurrence of PROM_DS_UID below with the UID of your
 # own Prometheus data source (Connections > Data sources > your source > Settings).
+#
+# These rules link back to specific panels on temporal_cloud_actions_mtd.json via
+# __dashboardUid__/__panelId__ annotations, so a firing alert can jump straight to
+# the relevant chart. This only works because that dashboard's uid is pinned to
+# "temporal-cloud-action-costs" - if you rename or re-key the dashboard's uid on
+# import, update the __dashboardUid__ values below to match.
 #
 # The thresholds here (50%, 75%, 80%) are reasonable starting points, not tuned to
 # any specific account. A namespace with naturally spiky, low-volume traffic will
@@ -42,14 +37,21 @@ groups:
           category: temporal-cost
           severity: warning
         annotations:
-          summary: "Action rate is {{ $values.A }}% higher than the same time yesterday."
+          summary: '{{ if $values.A }}Action rate for namespace {{ $labels.temporal_namespace }} is {{ printf "%.1f" $values.A.Value }}% above{{ else }}Action rate change unknown vs{{ end }} the same time yesterday.'
+          __dashboardUid__: temporal-cloud-action-costs
+          __panelId__: "25"
           description: >
-            Current Temporal Cloud action rate has moved more than 50% away from
-            the same time 24 hours ago. This usually means a deploy, new workflow
-            type, or bug started driving a lot more billable Actions than usual.
-            Check the "Billable Action Rate by Workflow Type" panel on the
-            Actions MTD & Spike Detection dashboard to see which Workflow Type
-            is responsible.
+            The action rate for namespace {{ $labels.temporal_namespace }} has
+            increased by more than 50% compared to the same time 24 hours ago.
+            This rule fires per-namespace specifically so a spike in a smaller
+            namespace isn't diluted/hidden by a much larger steady namespace in
+            the same account. This usually means a deploy, new workflow type, or
+            bug started driving a lot more billable Actions than usual in this
+            namespace. (This rule only catches increases - a sudden drop in
+            action rate, e.g. from workers going down, won't trigger it.) Check
+            the "Billable Action Rate by Workflow Type" panel, filtered to this
+            namespace, on the Actions MTD & Spike Detection dashboard to see
+            which Workflow Type is responsible.
         data:
           - refId: A
             relativeTimeRange:
@@ -59,9 +61,9 @@ groups:
             model:
               editorMode: code
               expr: >-
-                (sum(temporal_cloud_v1_total_action_count{temporal_namespace=~".*"})
-                - sum(temporal_cloud_v1_total_action_count{temporal_namespace=~".*"} offset 1d))
-                / clamp_min(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~".*"} offset 1d), 1e-9) * 100
+                (sum by (temporal_namespace) (temporal_cloud_v1_total_action_count{temporal_namespace=~".*"})
+                - (sum by (temporal_namespace) (temporal_cloud_v1_total_action_count{temporal_namespace=~".*"} offset 1d) or (sum by (temporal_namespace) (temporal_cloud_v1_total_action_count{temporal_namespace=~".*"}) * 0)))
+                / clamp_min(sum by (temporal_namespace) (temporal_cloud_v1_total_action_count{temporal_namespace=~".*"} offset 1d) or (sum by (temporal_namespace) (temporal_cloud_v1_total_action_count{temporal_namespace=~".*"}) * 0), 1) * 100
               instant: true
               range: false
               refId: A
@@ -94,13 +96,19 @@ groups:
           category: temporal-cost
           severity: warning
         annotations:
-          summary: "Action rate is {{ $values.A }}% higher than the same time last week."
+          summary: '{{ if $values.A }}Action rate for namespace {{ $labels.temporal_namespace }} is {{ printf "%.1f" $values.A.Value }}% above{{ else }}Action rate change unknown vs{{ end }} the same time last week.'
+          __dashboardUid__: temporal-cloud-action-costs
+          __panelId__: "25"
           description: >
-            Current Temporal Cloud action rate has moved more than 75% away from
-            the same time 7 days ago. Week-over-week naturally varies more than
+            The action rate for namespace {{ $labels.temporal_namespace }} has
+            increased by more than 75% compared to the same time 7 days ago.
+            This rule fires per-namespace specifically so a spike in a smaller
+            namespace isn't diluted/hidden by a much larger steady namespace in
+            the same account. Week-over-week naturally varies more than
             day-over-day, so this threshold is looser than the 24h rule - treat
             it as a slower-moving confirmation of a sustained usage change
-            rather than a same-day spike.
+            rather than a same-day spike. (This rule only catches increases,
+            not drops.)
         data:
           - refId: A
             relativeTimeRange:
@@ -110,9 +118,9 @@ groups:
             model:
               editorMode: code
               expr: >-
-                (sum(temporal_cloud_v1_total_action_count{temporal_namespace=~".*"})
-                - sum(temporal_cloud_v1_total_action_count{temporal_namespace=~".*"} offset 7d))
-                / sum(temporal_cloud_v1_total_action_count{temporal_namespace=~".*"} offset 7d) * 100
+                (sum by (temporal_namespace) (temporal_cloud_v1_total_action_count{temporal_namespace=~".*"})
+                - (sum by (temporal_namespace) (temporal_cloud_v1_total_action_count{temporal_namespace=~".*"} offset 7d) or (sum by (temporal_namespace) (temporal_cloud_v1_total_action_count{temporal_namespace=~".*"}) * 0)))
+                / clamp_min(sum by (temporal_namespace) (temporal_cloud_v1_total_action_count{temporal_namespace=~".*"} offset 7d) or (sum by (temporal_namespace) (temporal_cloud_v1_total_action_count{temporal_namespace=~".*"}) * 0), 1) * 100
               instant: true
               range: false
               refId: A
@@ -132,4 +140,55 @@ groups:
                 - evaluator:
                     type: gt
                     params: [75]
+              refId: C
+
+      - uid: tcloud-action-limit-approaching
+        title: Temporal Cloud - approaching action rate limit
+        condition: C
+        for: 5m
+        noDataState: NoData
+        execErrState: Error
+        labels:
+          category: temporal-cost
+          severity: critical
+        annotations:
+          summary: '{{ if $values.A }}Namespace {{ $labels.temporal_namespace }} is at {{ printf "%.1f" $values.A.Value }}% of its action rate limit{{ else }}Action rate vs limit unknown{{ end }}.'
+          __dashboardUid__: temporal-cloud-action-costs
+          description: >
+            Namespace {{ $labels.temporal_namespace }}'s actions-per-second is
+            above 80% of its own configured temporal_cloud_v1_action_limit. This
+            rule is per-namespace since the limit itself is per-namespace - an
+            account-wide comparison would let one saturated namespace hide
+            behind other idle ones. Sustained proximity to the limit risks
+            throttling (temporal_cloud_v1_total_action_throttled_count).
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: PROM_DS_UID
+            model:
+              editorMode: code
+              expr: >-
+                sum by (temporal_namespace) (temporal_cloud_v1_total_action_count{temporal_namespace=~".*", is_background="false"})
+                / sum by (temporal_namespace) (temporal_cloud_v1_action_limit{temporal_namespace=~".*"}) * 100
+              instant: true
+              range: false
+              refId: A
+          - refId: B
+            datasourceUid: __expr__
+            model:
+              type: reduce
+              expression: A
+              reducer: last
+              refId: B
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: B
+              conditions:
+                - evaluator:
+                    type: gt
+                    params: [80]
               refId: C
