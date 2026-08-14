@@ -1,0 +1,1046 @@
+{
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "12.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "row",
+      "name": "Row",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "uid": "${datasource}",
+          "type": "prometheus"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [
+    {
+      "title": "Temporal Cloud metrics reference",
+      "url": "https://docs.temporal.io/cloud/metrics/openmetrics/metrics-reference",
+      "type": "link",
+      "icon": "external link",
+      "tooltip": "",
+      "targetBlank": true,
+      "keepTime": false,
+      "includeVars": false,
+      "asDropdown": false,
+      "tags": []
+    }
+  ],
+  "panels": [
+    {
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# Temporal Cloud \u2014 Actions Spent (MTD) & Spike Detection\n\nScope, on purpose: this dashboard answers two questions from OpenMetrics alone \u2014 **\"how many Actions have we used this month?\"** and **\"did something just start using way more Actions than usual?\"** It does not attempt to track spend against a commit or credit balance \u2014 Temporal Cloud doesn't expose price or credit-ledger balance via metrics, only Action volume (`temporal_cloud_v1_total_action_count`, `temporal_cloud_v1_billable_action_count`).\n\nThe dashboard defaults to **month-to-date** (start of month through now). If you change the time picker, avoid Grafana's built-in \"This month\" quick-pick \u2014 it rounds the end of the range up to the last day of the month rather than stopping at now, so the label will visually claim more days than have actually happened (the totals themselves are still accurate either way, since only real data gets summed - but the labeled range would be misleading). Use a custom range with \"to: now\" instead.\n\n**Alerting**: the delta panels below (Action Rate \u0394 vs 24h/7d Ago) are paired with Grafana alert rules \u2014 see the companion `temporal_cloud_action_costs_alerts.yaml` \u2014 so a spike notifies your team instead of only being visible to whoever happens to be looking at the dashboard. **Scope note:** the alert rules evaluate per-namespace (so a spike in a small namespace isn't masked by a much larger, steady one), but the two \u0394 stat panels on this dashboard are still account-wide aggregates. If you get paged for a specific namespace, filter the `Namespace` variable above to that namespace before checking these panels \u2014 looking at them with \"All\" selected can understate or hide the very spike that paged you.\n\n\n**Only seeing a few namespaces in the dropdown?** That's expected, not a bug. OpenMetrics uses sparse reporting - a namespace only appears in a given scrape if it generated at least one billable Action in that window. Idle/unused namespaces simply won't show up here, no matter how wide you set the time range, until they have real traffic.\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "12.0.0",
+      "title": "About This Dashboard",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 10,
+      "panels": [],
+      "title": "Summary",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}",
+        "type": "prometheus"
+      },
+      "description": "Estimated total billable actions over the last 1 day",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 7
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(sum_over_time(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[1d:1m])) * 60",
+          "legendFormat": "Actions",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "1 Day Actions",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}",
+        "type": "prometheus"
+      },
+      "description": "Estimated total billable actions over the last 7 days",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 7
+      },
+      "id": 13,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(sum_over_time(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[7d:1m])) * 60",
+          "legendFormat": "Actions",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "7 Day Actions",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}",
+        "type": "prometheus"
+      },
+      "description": "Total estimated actions in the selected time range. Defaults to month-to-date (now/M to now). If you customize the time range, avoid Grafana's built-in 'This month' quick-pick - it rounds the end of the range up to month-end rather than stopping at now, so the displayed range would visually claim days that haven't happened yet, even though the total itself stays accurate.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short",
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 7
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(sum_over_time(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}[$__range:1m])) * 60",
+          "legendFormat": "Actions",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Actions Spent This Month (MTD)",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 20,
+      "panels": [],
+      "title": "Action Spike Detection (\"who just started using a lot of actions?\")",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}",
+        "type": "prometheus"
+      },
+      "description": "Overlay of the current action rate against the same time yesterday and the same time last week. A line pulling away from its baselines is the first sign of an unannounced change driving usage.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"})",
+          "legendFormat": "now",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 1d)",
+          "legendFormat": "24h ago",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 7d)",
+          "legendFormat": "7d ago",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Action Rate: Now vs 24h Ago vs 7d Ago",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}",
+        "type": "prometheus"
+      },
+      "description": "Percent change in current action rate vs the same time yesterday. Large positive swings flag an unannounced usage spike. Paired with the matching per-namespace alert rule in temporal_cloud_action_costs_alerts.yaml (this panel itself is account-wide, not per-namespace - see note below).",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "yellow",
+                "value": 25
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          },
+          "unit": "percent",
+          "decimals": 1
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 12,
+        "y": 17
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}) - (sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 1d) or vector(0))) / clamp_min(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 1d) or vector(0), 1) * 100",
+          "legendFormat": "% change",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Action Rate \u0394 vs 24h Ago",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}",
+        "type": "prometheus"
+      },
+      "description": "Percent change in current action rate vs the same time last week. Paired with the matching per-namespace alert rule in temporal_cloud_action_costs_alerts.yaml (this panel itself is account-wide, not per-namespace - see note below).",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "yellow",
+                "value": 25
+              },
+              {
+                "color": "red",
+                "value": 75
+              }
+            ]
+          },
+          "unit": "percent",
+          "decimals": 1
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 16,
+        "y": 17
+      },
+      "id": 23,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"}) - (sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 7d) or vector(0))) / clamp_min(sum(temporal_cloud_v1_total_action_count{temporal_namespace=~\"$temporal_namespace\"} offset 7d) or vector(0), 1) * 100",
+          "legendFormat": "% change",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Action Rate \u0394 vs 7d Ago",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}",
+        "type": "prometheus"
+      },
+      "description": "Current number of open workflows in scope",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 20,
+        "y": 17
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(temporal_cloud_v1_namespace_open_workflows{temporal_namespace=~\"$temporal_namespace\"})",
+          "legendFormat": "open",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Open Workflows",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}",
+        "type": "prometheus"
+      },
+      "description": "Breaks the action rate down by Workflow Type so a newly-released or newly-busy workflow shows up immediately instead of hiding inside the account total.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
+      "id": 25,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum by (temporal_workflow_type, temporal_namespace) (temporal_cloud_v1_billable_action_count{temporal_namespace=~\"$temporal_namespace\"})\nand\ntopk(8, sum by (temporal_workflow_type, temporal_namespace) (\n  sum_over_time(temporal_cloud_v1_billable_action_count{temporal_namespace=~\"$temporal_namespace\"}[$__range:1m] @ end())\n))",
+          "legendFormat": "{{temporal_workflow_type}} ({{temporal_namespace}})",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Billable Action Rate by Workflow Type (Top 8)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}",
+        "type": "prometheus"
+      },
+      "description": "Breaks the action rate down by Action Type (Workflow started, Activity, Signal, Timer, etc.) to show which billable operation is driving a spike.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 26
+      },
+      "id": 26,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum by (action_type) (temporal_cloud_v1_billable_action_count{temporal_namespace=~\"$temporal_namespace\"})",
+          "legendFormat": "{{action_type}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Billable Action Rate by Action Type",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}",
+        "type": "prometheus"
+      },
+      "description": "Ranked table of the top 20 Workflow Types by estimated billable actions over the selected time range. Sort or widen the time range to spot which workflow type is the biggest driver of usage. Note: the footer total reflects only these top 20 rows, not the full account \u2014 if you have more than 20 distinct Workflow Types, this will undercount the true account-wide total.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 35
+      },
+      "id": 27,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": [
+            "Estimated Actions"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Estimated Actions"
+          }
+        ]
+      },
+      "pluginVersion": "12.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}",
+            "type": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "topk(20, sum by (temporal_workflow_type, temporal_namespace) (\n  sum_over_time(temporal_cloud_v1_billable_action_count{temporal_namespace=~\"$temporal_namespace\"}[$__range:1m])\n) * 60)",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Top 20 Workflow Types \u2014 Actions in Selected Range",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "temporal_workflow_type": 0,
+              "temporal_namespace": 1,
+              "Value": 2
+            },
+            "renameByName": {
+              "Value": "Estimated Actions",
+              "temporal_namespace": "Namespace",
+              "temporal_workflow_type": "Workflow Type"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 41,
+  "tags": [
+    "temporal",
+    "cloud",
+    "actions",
+    "mtd"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": false,
+        "current": {},
+        "description": "Prometheus Data source",
+        "label": "Data source",
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "allValue": ".*",
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "uid": "${datasource}",
+          "type": "prometheus"
+        },
+        "definition": "label_values(temporal_cloud_v1_total_action_count,temporal_namespace)",
+        "includeAll": true,
+        "name": "temporal_namespace",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(temporal_cloud_v1_total_action_count,temporal_namespace)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "sort": 1,
+        "type": "query",
+        "multi": true
+      }
+    ]
+  },
+  "time": {
+    "from": "now/M",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Temporal Cloud - Actions MTD & Spike Detection",
+  "uid": "temporal-cloud-action-costs",
+  "version": 1,
+  "weekStart": ""
+}
