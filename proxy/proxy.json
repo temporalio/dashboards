@@ -1,0 +1,243 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "graphTooltip": 1,
+  "liveNow": false,
+  "refresh": "30s",
+  "schemaVersion": 40,
+  "tags": ["temporal-proxy"],
+  "time": {"from": "now-1h", "to": "now"},
+  "timezone": "",
+  "title": "Temporal Proxy",
+  "uid": "temporal-proxy",
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "label": "Datasource",
+        "type": "datasource",
+        "query": "prometheus",
+        "refresh": 1,
+        "current": {},
+        "options": [],
+        "includeAll": false,
+        "regex": ""
+      },
+      {
+        "name": "upstream",
+        "label": "Upstream",
+        "type": "query",
+        "datasource": {"type": "prometheus", "uid": "${datasource}"},
+        "query": {"query": "label_values(tmprl_proxy_router_decisions_total, upstream)", "refId": "PrometheusVariableQueryEditor-VariableQuery"},
+        "refresh": 2,
+        "sort": 1,
+        "multi": true,
+        "includeAll": true,
+        "allValue": ".*",
+        "current": {"text": "All", "value": "$__all", "selected": false}
+      }
+    ]
+  },
+  "panels": [
+    {"type": "row", "title": "Overview", "collapsed": false, "gridPos": {"h": 1, "w": 24, "x": 0, "y": 0}, "id": 100, "panels": []},
+    {
+      "type": "stat",
+      "title": "Success rate (5m)",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 5, "w": 8, "x": 0, "y": 1},
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "thresholds": {"mode": "absolute", "steps": [
+            {"color": "red", "value": null},
+            {"color": "orange", "value": 0.95},
+            {"color": "green", "value": 0.99}
+          ]}
+        },
+        "overrides": []
+      },
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "colorMode": "background", "graphMode": "area"},
+      "targets": [
+        {"expr": "sum(rate(tmprl_proxy_server_requests_total{code=\"OK\"}[5m])) / clamp_min(sum(rate(tmprl_proxy_server_requests_total[5m])), 1e-9)", "refId": "A"}
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Total RPS (1m)",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 5, "w": 8, "x": 8, "y": 1},
+      "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "colorMode": "value", "graphMode": "area"},
+      "targets": [
+        {"expr": "sum(rate(tmprl_proxy_server_requests_total[1m]))", "refId": "A"}
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Error rate (5m)",
+      "description": "Fraction of requests failing. Excludes Canceled (client/worker disconnects) and NotFound (lookup misses), which are client-driven and not proxy failures.",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 5, "w": 8, "x": 16, "y": 1},
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "thresholds": {"mode": "absolute", "steps": [
+            {"color": "green", "value": null},
+            {"color": "orange", "value": 0.01},
+            {"color": "red", "value": 0.05}
+          ]}
+        },
+        "overrides": []
+      },
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "colorMode": "background", "graphMode": "area"},
+      "targets": [
+        {"expr": "sum(rate(tmprl_proxy_server_requests_total{code!~\"OK|Canceled|NotFound\"}[5m])) / clamp_min(sum(rate(tmprl_proxy_server_requests_total{code!~\"Canceled|NotFound\"}[5m])), 1e-9)", "refId": "A"}
+      ]
+    },
+
+    {"type": "row", "title": "Traffic", "collapsed": false, "gridPos": {"h": 1, "w": 24, "x": 0, "y": 6}, "id": 101, "panels": []},
+    {
+      "type": "timeseries",
+      "title": "RPS by method",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 9, "w": 12, "x": 0, "y": 7},
+      "fieldConfig": {"defaults": {"unit": "reqps", "custom": {"drawStyle": "line", "lineInterpolation": "linear", "fillOpacity": 10}}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom", "showLegend": true, "calcs": ["mean", "max"]}, "tooltip": {"mode": "multi", "sort": "desc"}},
+      "targets": [
+        {"expr": "sum by (method) (label_replace(rate(tmprl_proxy_server_requests_total[1m]), \"method\", \"$1\", \"method\", \".*/(.*)\"))", "legendFormat": "{{method}}", "refId": "A"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "RPS by gRPC code",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 9, "w": 12, "x": 12, "y": 7},
+      "fieldConfig": {"defaults": {"unit": "reqps", "custom": {"drawStyle": "line", "lineInterpolation": "linear", "fillOpacity": 10, "stacking": {"mode": "normal"}}}, "overrides": [
+        {"matcher": {"id": "byName", "options": "OK"}, "properties": [{"id": "color", "value": {"mode": "fixed", "fixedColor": "green"}}]}
+      ]},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom", "showLegend": true, "calcs": ["mean", "max"]}, "tooltip": {"mode": "multi", "sort": "desc"}},
+      "targets": [
+        {"expr": "sum by (code) (rate(tmprl_proxy_server_requests_total[1m]))", "legendFormat": "{{code}}", "refId": "A"}
+      ]
+    },
+
+    {"type": "row", "title": "Latency", "collapsed": false, "gridPos": {"h": 1, "w": 24, "x": 0, "y": 16}, "id": 102, "panels": []},
+    {
+      "type": "timeseries",
+      "title": "Request duration p50",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 17},
+      "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom", "showLegend": true, "calcs": ["mean", "max"]}, "tooltip": {"mode": "multi", "sort": "desc"}},
+      "targets": [
+        {"expr": "histogram_quantile(0.50, sum by (le, method) (label_replace(rate(tmprl_proxy_server_request_duration_seconds_bucket[5m]), \"method\", \"$1\", \"method\", \".*/(.*)\")))", "legendFormat": "{{method}}", "refId": "A"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Request duration p95",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 17},
+      "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom", "showLegend": true, "calcs": ["mean", "max"]}, "tooltip": {"mode": "multi", "sort": "desc"}},
+      "targets": [
+        {"expr": "histogram_quantile(0.95, sum by (le, method) (label_replace(rate(tmprl_proxy_server_request_duration_seconds_bucket[5m]), \"method\", \"$1\", \"method\", \".*/(.*)\")))", "legendFormat": "{{method}}", "refId": "A"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Request duration p99",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 17},
+      "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom", "showLegend": true, "calcs": ["mean", "max"]}, "tooltip": {"mode": "multi", "sort": "desc"}},
+      "targets": [
+        {"expr": "histogram_quantile(0.99, sum by (le, method) (label_replace(rate(tmprl_proxy_server_request_duration_seconds_bucket[5m]), \"method\", \"$1\", \"method\", \".*/(.*)\")))", "legendFormat": "{{method}}", "refId": "A"}
+      ]
+    },
+
+    {"type": "row", "title": "Router", "collapsed": false, "gridPos": {"h": 1, "w": 24, "x": 0, "y": 25}, "id": 103, "panels": []},
+    {
+      "type": "timeseries",
+      "title": "Routing decisions (by upstream / outcome)",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 26},
+      "fieldConfig": {"defaults": {"unit": "reqps", "custom": {"stacking": {"mode": "normal"}}}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom", "showLegend": true, "calcs": ["mean", "max"]}, "tooltip": {"mode": "multi"}},
+      "targets": [
+        {"expr": "sum by (upstream, outcome) (rate(tmprl_proxy_router_decisions_total{upstream=~\"$upstream\"}[1m]))", "legendFormat": "{{upstream}} / {{outcome}}", "refId": "A"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Forwarding errors (by upstream / reason)",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 26},
+      "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom", "showLegend": true, "calcs": ["mean", "max"]}, "tooltip": {"mode": "multi"}},
+      "targets": [
+        {"expr": "sum by (upstream, reason) (rate(tmprl_proxy_router_forwarding_errors_total{upstream=~\"$upstream\"}[1m]))", "legendFormat": "{{upstream}} / {{reason}}", "refId": "A"}
+      ]
+    },
+
+    {"type": "row", "title": "Encryption", "collapsed": false, "gridPos": {"h": 1, "w": 24, "x": 0, "y": 34}, "id": 104, "panels": []},
+    {
+      "type": "timeseries",
+      "title": "Vault ops (by operation / result)",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 35},
+      "fieldConfig": {"defaults": {"unit": "ops"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom", "showLegend": true, "calcs": ["mean", "max"]}, "tooltip": {"mode": "multi"}},
+      "targets": [
+        {"expr": "sum by (operation, result) (rate(tmprl_proxy_encryption_vault_ops_total[1m]))", "legendFormat": "{{operation}} / {{result}}", "refId": "A"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "KEK ops (by provider / operation / result)",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 35},
+      "fieldConfig": {"defaults": {"unit": "ops"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom", "showLegend": true, "calcs": ["mean", "max"]}, "tooltip": {"mode": "multi"}},
+      "targets": [
+        {"expr": "sum by (provider, operation, result) (rate(tmprl_proxy_encryption_kek_ops_total[1m]))", "legendFormat": "{{provider}} / {{operation}} / {{result}}", "refId": "A"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "DEK ops & rotations",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 43},
+      "fieldConfig": {"defaults": {"unit": "ops"}, "overrides": []},
+      "options": {"legend": {"displayMode": "table", "placement": "bottom", "showLegend": true, "calcs": ["mean", "max"]}, "tooltip": {"mode": "multi"}},
+      "targets": [
+        {"expr": "sum by (operation, result) (rate(tmprl_proxy_encryption_dek_ops_total[1m]))", "legendFormat": "op: {{operation}} / {{result}}", "refId": "A"},
+        {"expr": "sum by (reason) (rate(tmprl_proxy_encryption_dek_rotations_total[5m]))", "legendFormat": "rotation: {{reason}}", "refId": "B"}
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "DEK cache hit ratio (5m)",
+      "datasource": {"type": "prometheus", "uid": "${datasource}"},
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 43},
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit", "min": 0, "max": 1,
+          "thresholds": {"mode": "absolute", "steps": [
+            {"color": "red", "value": null},
+            {"color": "orange", "value": 0.8},
+            {"color": "green", "value": 0.95}
+          ]}
+        }, "overrides": []
+      },
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "colorMode": "background", "graphMode": "area"},
+      "targets": [
+        {"expr": "sum(rate(tmprl_proxy_encryption_dek_cache_hits_total[5m])) / clamp_min(sum(rate(tmprl_proxy_encryption_dek_cache_hits_total[5m])) + sum(rate(tmprl_proxy_encryption_dek_cache_misses_total[5m])), 1e-9)", "refId": "A"}
+      ]
+    }
+  ]
+}
