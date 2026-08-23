@@ -3295,7 +3295,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_EXTERNAL_METRICS}"
+          "uid": "${datasource}"
         },
         "definition": "label_values(temporal_namespace)",
         "includeAll": false,
