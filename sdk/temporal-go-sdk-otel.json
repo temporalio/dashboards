@@ -2798,7 +2798,7 @@
           "editorMode": "code",
           "expr": "temporal_worker_task_slots_available{namespace=~\"$namespace\"}",
           "intervalFactor": 2,
-          "legendFormat": "namespace: {{ namespace }}; worker_type:{{worker_type}}",
+          "legendFormat": "namespace: {{ namespace }}; worker_type:{{worker_type}}; task_queue:{{task_queue}}",
           "range": true,
           "refId": "A"
         }
@@ -3004,7 +3004,7 @@
           "editorMode": "code",
           "expr": "temporal_worker_task_slots_used{namespace=~\"$namespace\"}",
           "intervalFactor": 2,
-          "legendFormat": "namespace: {{ namespace }}; worker_type:{{worker_type}}",
+          "legendFormat": "namespace: {{ namespace }}; worker_type:{{worker_type}}; task_queue:{{task_queue}}",
           "range": true,
           "refId": "A"
         }
